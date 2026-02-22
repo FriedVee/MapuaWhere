@@ -1,12 +1,12 @@
 
        /*index.html*/
-       body { 
+body { 
             font-family: Arial, sans-serif; 
             margin: 0; background: #f9f9f9; 
             display: flex; 
             justify-content: center; 
         }
-        .phone-container {
+.phone-container {
              width: 375px; 
               
              border-radius: 40px; 
@@ -15,7 +15,7 @@
              overflow-y: auto; 
              padding: 20px; 
              box-sizing: border-box; 
-             position: relative; }
+             position: relative;}
         
 header {
     background-color: #ffffff; /* Red background matching the logo */
@@ -121,3 +121,76 @@ header {
         font-weight: bold;
         cursor: pointer;
     }
+
+.gallery-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 15px;
+}
+
+.logo-text { font-weight: bold; color: #d82f2f; font-size: 1.1rem; }
+.menu-icon { font-size: 24px; color: #d82f2f; cursor: pointer; }
+
+/* 4. Filter Bar (Scrolls left to right) */
+.filter-scroll {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding: 10px 0 20px 0;
+    -ms-overflow-style: none; /* Hide scrollbar Firefox */
+    scrollbar-width: none; /* Hide scrollbar IE */
+}
+.filter-scroll::-webkit-scrollbar { display: none; } /* Hide scrollbar Chrome */
+
+.chip {
+    border: 2px solid black;
+    border-radius: 20px;
+    padding: 6px 14px;
+    background: white;
+    font-weight: bold;
+    font-size: 12px;
+    white-space: nowrap;
+}
+.chip.active { background: #333; color: white; }
+
+/* 5. The 2-Column Grid */
+.item-grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.grid-item {
+    border: 2px solid black;
+    border-radius: 12px;
+    text-decoration: none;
+    color: black;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.img-box {
+    aspect-ratio: 1/1;
+    background: #eee;
+    border-bottom: 2px solid black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.img-box span { font-size: 30px; color: #ccc; }
+
+.item-details { padding: 8px; }
+.name { display: block; font-weight: bold; font-size: 13px; }
+.loc { display: block; font-size: 11px; color: #666; margin-top: 3px; }
+
+/* 6. Footer Fixed to Bottom */
+.gallery-footer {
+    margin-top: auto; /* Pushes it to the bottom */
+    padding: 20px 0 10px 0;
+    text-align: center;
+    border-top: 2px solid black;
+    font-size: 12px;
+    font-weight: bold;
+}
