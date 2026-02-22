@@ -6,31 +6,31 @@
 </head>
 <body>
     <div class="form-container">
-    <!-- Top Toggle Tabs -->
     <div class="tabs">
-        <div class="tab active">[ Option 1 ]</div>
-        <div class="tab">[ Option 2 ]</div>
+        <div class="tab active">Report Found</div>
+        <div class="tab">Report Lost</div>
     </div>
 
-    <!-- Upload Section -->
     <div class="upload-box">
         <div class="camera-icon">📷</div>
-        <p>Upload Photo</p>
+        <p>Upload Photo of Item</p>
     </div>
 
-    <!-- Form Inputs -->
     <select class="input-field">
-        <option>Select Category</option>
+        <option disabled selected>Select Category Found</option>
+        <option>Electronics</option>
+        <option>Pets/Animals</option>
+        <option>Wallets/Keys/IDs</option>
+        <option>Clothing/Accessories</option>
     </select>
 
-    <input type="text" class="input-field" placeholder="Input Field">
+    <input type="text" class="input-field" placeholder="General Item Name (e.g. Silver Watch)">
     
-    <input type="text" class="input-field" placeholder="Input Field">
+    <input type="text" class="input-field" placeholder="Where was this found? (Location/Building)">
 
-    <textarea class="input-field multi-line" placeholder="Multi-line Input"></textarea>
+    <textarea class="input-field multi-line" placeholder="General description (Brand, color, etc.). Note: Keep one unique detail secret to verify the owner."></textarea>
 
-    <!-- Submit Button -->
-    <button class="submit-btn">Submit Button</button>
+    <button class="submit-btn">Post Found Item</button>
 </div>
 </body>
 </html>
