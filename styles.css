@@ -1,0 +1,123 @@
+
+       /*index.html*/
+       body { 
+            font-family: Arial, sans-serif; 
+            margin: 0; background: #f9f9f9; 
+            display: flex; 
+            justify-content: center; 
+        }
+        .phone-container {
+             width: 375px; 
+              
+             border-radius: 40px; 
+             height: 812px; 
+             background: white; 
+             overflow-y: auto; 
+             padding: 20px; 
+             box-sizing: border-box; 
+             position: relative; }
+        
+header {
+    background-color: #ffffff; /* Red background matching the logo */
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white; 
+}
+
+/*Logo */
+.logo {
+    background: transparent;
+    border: none;
+}
+
+/* Menu */
+.menu-icon {
+    color: #d82f2f; 
+    font-size: 24px;
+    cursor: pointer;
+}
+        /* Search Bar */
+        .search-bar { 
+            border-radius: 15px;
+            padding: 10px; width: 100%; 
+            box-sizing: border-box; 
+            margin-bottom: 20px; 
+            background-color: #cac6c6;
+            color: #666; }
+
+        /* Action Buttons */
+        .actions { display: flex; gap: 10px; margin-bottom: 30px; }
+        .btn { flex: 1; border: 2px solid black; padding: 15px; text-align: center; font-weight: bold; cursor: pointer; }
+
+        /* Recent Activity List */
+        .recent-title { font-weight: bold; font-size: 18px; margin-bottom: 15px; }
+        .item-card { border: 2px solid black; display: flex; padding: 10px; margin-bottom: 10px; border-radius: 5px; }
+        .item-img-placeholder { width: 60px; height: 60px; border: 2px solid black; margin-right: 15px; display: flex; align-items: center; justify-content: center; }
+        .item-info { display: flex; flex-direction: column; justify-content: center; }
+        .item-name { font-weight: bold; margin-bottom: 2px; }
+        .item-meta { font-size: 12px; color: #666; }
+        img {
+            width: 100px;
+        }
+
+        /*form.html*/
+        .form-container {
+        width: 340px;
+        margin: auto;
+        padding: 20px;
+        font-family: sans-serif;
+    }
+
+    /* Tabs Styling */
+    .tabs {
+        display: flex;
+        border: 2px solid #333;
+        border-radius: 8px; /* Rounded corners */
+        overflow: hidden;
+        margin-bottom: 20px;
+    }
+    .tab {
+        flex: 1;
+        padding: 10px;
+        text-align: center;
+        background: #eee;
+        cursor: pointer;
+    }
+    .tab.active { background: #ccc; border-right: 2px solid #333; }
+
+    /* Upload Box with Dashed Border */
+    .upload-box {
+        border: 2px dashed #333;
+        border-radius: 12px;
+        height: 150px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 20px;
+    }
+
+    /* Input Styling */
+    .input-field {
+        width: 100%;
+        padding: 12px;
+        margin-bottom: 12px;
+        border: 2px solid #333;
+        border-radius: 8px; /* Rounded edges */
+        box-sizing: border-box; /* Keeps padding inside width */
+        font-size: 16px;
+    }
+    .multi-line { height: 100px; resize: none; }
+
+    /* Submit Button Styling */
+    .submit-btn {
+        width: 100%;
+        padding: 15px;
+        background: white;
+        border: 2px solid #333;
+        border-radius: 10px;
+        font-weight: bold;
+        cursor: pointer;
+    }
