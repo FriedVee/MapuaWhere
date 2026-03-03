@@ -13,15 +13,26 @@
             <div class="s-tab" id="status-resolved">RESOLVED</div>
         </div>
 
-        <div class="detail-img-box" id="item-image">
-            <span>☒</span>
+        <div class="details-container">
+    <div class="image-header">
+        <img id="detail-image" src="" alt="Item Image" style="width:100%; border-radius: 15px;">
+    </div>
+    
+        <h2 id="detail-name">Loading...</h2>
+        <p><strong>Status:</strong> <span id="detail-status"></span></p>
+        <p><strong>Category:</strong> <span id="detail-category"></span></p>
+        <p><strong>Location:</strong> <span id="detail-location"></span></p>
+        <p><strong>Date Reported:</strong> <span id="detail-time"></span></p>
+        
+        <div class="description-box">
+            <h3>Description</h3>
+            <p id="detail-description"></p>
         </div>
+        
+        <button class="contact-btn">Message Reporter</button>
+    </div>
 
-        <div class="detail-info">
-            <h2 id="detail-name">Item Name</h2>
-            <p id="detail-description">Loading description...</p>
-        </div>
-
+    <script src="script.js"></script>
         <div class="map-container">
             <div class="map-box">
                 <img src="img/map-placeholder.png" alt="Floor Map" style="width:100%;">
