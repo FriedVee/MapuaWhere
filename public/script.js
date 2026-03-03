@@ -1,4 +1,3 @@
-// 1. Setup the Image Upload click behavior
 const uploadBox = document.querySelector('.upload-box');
 const fileInput = document.getElementById('itemPhoto');
 
@@ -11,7 +10,6 @@ if (uploadBox && fileInput) {
     };
 }
 
-// 2. The Universal Submit Logic
 const submitBtn = document.getElementById('submitBtn');
 if (submitBtn) {
     submitBtn.addEventListener('click', async () => {
@@ -50,10 +48,8 @@ if (submitBtn) {
     });
 }
 
-// 3. Load Recent Activity (index.html)
 async function loadRecentActivity() {
     const container = document.getElementById('activity-list');
-    // GUARD: Only run on index.html if the activity-list div is present
     if (!container) return;
 
     try {
@@ -89,10 +85,8 @@ async function loadRecentActivity() {
     }
 }
 
-// 4. Load Full Gallery with Filtering (gallery.html)
 async function loadGallery(filter = "All") {
     const galleryGrid = document.querySelector('.item-grid-container'); 
-    // GUARD: Only run if we are on the gallery page
     if (!galleryGrid) return;
 
     try {
@@ -133,7 +127,6 @@ async function loadGallery(filter = "All") {
     } catch (err) { console.error("Error loading gallery:", err); }
 }
 
-// 5. Setup Category Filters (gallery.html)
 function setupFilters() {
     const chips = document.querySelectorAll('.chip');
     if (chips.length === 0) return;
@@ -148,10 +141,9 @@ function setupFilters() {
     });
 }
 
-// 6. Load Item Details (details.html)
 async function loadItemDetails() {
     const detailName = document.getElementById('detail-name');
-    if (!detailName) return; // Only run on details.html
+    if (!detailName) return; 
 
     const urlParams = new URLSearchParams(window.location.search);
     const itemId = urlParams.get('id');
@@ -182,7 +174,7 @@ async function loadItemDetails() {
     }
 }
 
-// Global Load Trigger
+
 window.onload = () => {
     loadRecentActivity();
     loadGallery();
