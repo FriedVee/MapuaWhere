@@ -1,5 +1,3 @@
-
-       /*index.html*/
 body { 
             font-family: Arial, sans-serif; 
             margin: 0; background: #f9f9f9; 
@@ -18,7 +16,7 @@ body {
              position: relative;}
         
 header {
-    background-color: #ffffff; /* Red background matching the logo */
+    background-color: #ffffff; 
     padding: 10px 20px;
     display: flex;
     justify-content: space-between;
@@ -26,19 +24,17 @@ header {
     color: white; 
 }
 
-/*Logo */
 .logo {
     background: transparent;
     border: none;
 }
 
-/* Menu */
 .menu-icon {
     color: #d82f2f; 
     font-size: 24px;
     cursor: pointer;
 }
-        /* Search Bar */
+
         .search-bar { 
             border-radius: 15px;
             padding: 10px; width: 100%; 
@@ -47,22 +43,60 @@ header {
             background-color: #cac6c6;
             color: #666; }
 
-        /* Action Buttons */
-        .actions { display: flex; gap: 10px; margin-bottom: 30px; }
-        .btn { flex: 1; border: 2px solid black; padding: 15px; text-align: center; font-weight: bold; cursor: pointer; }
+        .actions { 
+               display: flex; 
+               gap: 10px; 
+               margin-bottom: 30px; 
+        }
 
-        /* Recent Activity List */
-        .recent-title { font-weight: bold; font-size: 18px; margin-bottom: 15px; }
-        .item-card { border: 2px solid black; display: flex; padding: 10px; margin-bottom: 10px; border-radius: 5px; }
-        .item-img-placeholder { width: 60px; height: 60px; border: 2px solid black; margin-right: 15px; display: flex; align-items: center; justify-content: center; }
-        .item-info { display: flex; flex-direction: column; justify-content: center; }
-        .item-name { font-weight: bold; margin-bottom: 2px; }
-        .item-meta { font-size: 12px; color: #666; }
+        .btn { 
+               flex: 1; border: 
+               2px solid black; padding: 15px; 
+               text-align: center; 
+               font-weight: bold; 
+               cursor: pointer; }
+        
+        .recent-title { 
+               font-weight: bold; 
+               font-size: 18px; 
+               margin-bottom: 15px; 
+        }
+        .item-card { 
+               border: 2px solid black; 
+               display: flex; padding: 10px;
+               margin-bottom: 10px; 
+               border-radius: 5px; 
+        }
+
+        .item-img-placeholder {
+               width: 60px; 
+               height: 60px; 
+               border: 2px solid black; 
+               margin-right: 15px; 
+               display: flex;
+               align-items: center;
+               justify-content: center; 
+        
+        
+        .item-info {
+               display: flex; 
+               flex-direction: column; 
+               justify-content: center; 
+        }
+               
+        .item-name { 
+               font-weight: bold; 
+               margin-bottom: 2px; 
+        }
+               
+        .item-meta { 
+               font-size: 12px; 
+               color: #666; 
+        }
         img {
             width: 100px;
         }
 
-        /*form.html*/
         .form-container {
         width: 340px;
         margin: auto;
@@ -70,11 +104,10 @@ header {
         font-family: sans-serif;
     }
 
-    /* Tabs Styling */
     .tabs {
         display: flex;
         border: 2px solid #333;
-        border-radius: 8px; /* Rounded corners */
+        border-radius: 8px;
         overflow: hidden;
         margin-bottom: 20px;
     }
@@ -85,9 +118,11 @@ header {
         background: #eee;
         cursor: pointer;
     }
-    .tab.active { background: #ccc; border-right: 2px solid #333; }
+    .tab.active { 
+           background: #ccc; 
+           border-right: 2px solid #333; 
+    }
 
-    /* Upload Box with Dashed Border */
     .upload-box {
         border: 2px dashed #333;
         border-radius: 12px;
@@ -99,19 +134,20 @@ header {
         margin-bottom: 20px;
     }
 
-    /* Input Styling */
     .input-field {
         width: 100%;
         padding: 12px;
         margin-bottom: 12px;
         border: 2px solid #333;
-        border-radius: 8px; /* Rounded edges */
-        box-sizing: border-box; /* Keeps padding inside width */
+        border-radius: 8px; 
+        box-sizing: border-box; 
         font-size: 16px;
     }
-    .multi-line { height: 100px; resize: none; }
+    .multi-line {
+           height: 100px; 
+           resize: none; 
+    }
 
-    /* Submit Button Styling */
     .submit-btn {
         width: 100%;
         padding: 15px;
@@ -129,19 +165,28 @@ header {
     padding-bottom: 15px;
 }
 
-.logo-text { font-weight: bold; color: #d82f2f; font-size: 1.1rem; }
-.menu-icon { font-size: 24px; color: #d82f2f; cursor: pointer; }
+.logo-text { 
+       font-weight: bold; 
+       color: #d82f2f; 
+       font-size: 1.1rem; 
+}
+.menu-icon { 
+       font-size: 24px; 
+       color: #d82f2f; 
+       cursor: pointer; 
+}
 
-/* 4. Filter Bar (Scrolls left to right) */
 .filter-scroll {
     display: flex;
     gap: 8px;
     overflow-x: auto;
     padding: 10px 0 20px 0;
-    -ms-overflow-style: none; /* Hide scrollbar Firefox */
-    scrollbar-width: none; /* Hide scrollbar IE */
+    -ms-overflow-style: none; 
+    scrollbar-width: none; 
 }
-.filter-scroll::-webkit-scrollbar { display: none; } /* Hide scrollbar Chrome */
+.filter-scroll::-webkit-scrollbar { 
+       display: none; 
+} 
 
 .chip {
     border: 2px solid black;
@@ -152,9 +197,11 @@ header {
     font-size: 12px;
     white-space: nowrap;
 }
-.chip.active { background: #333; color: white; }
+.chip.active {
+       background: #333; 
+       color: white; 
+}
 
-/* 5. The 2-Column Grid */
 .item-grid-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -179,15 +226,30 @@ header {
     align-items: center;
     justify-content: center;
 }
-.img-box span { font-size: 30px; color: #ccc; }
+.img-box span { 
+       font-size: 30px; 
+       color: #ccc; 
+}
 
-.item-details { padding: 8px; }
-.name { display: block; font-weight: bold; font-size: 13px; }
-.loc { display: block; font-size: 11px; color: #666; margin-top: 3px; }
+.item-details { 
+       padding: 8px; 
+}
+               
+.name { 
+       display: block; 
+       font-weight: bold; 
+       font-size: 13px; 
+}
+               
+.loc { 
+       display: block; 
+       font-size: 11px; 
+       color: #666; 
+       margin-top: 3px; 
+}
 
-/* 6. Footer Fixed to Bottom */
 .gallery-footer {
-    margin-top: auto; /* Pushes it to the bottom */
+    margin-top: auto;
     padding: 20px 0 10px 0;
     text-align: center;
     border-top: 2px solid black;
