@@ -6,9 +6,10 @@
 </head>
 <body>
     <div class="phone-container">
+        
         <header>
             <div class="logo">
-                <img src="img/MapuaWhere_logo.png">
+                <img src="C:\Projects\MapuaWhere\MapuaWhere_logo.png" alt="MapuaWhere Logo" style="height: 40px;">
             </div>
             <div class="menu-icon">☰</div>
         </header>
@@ -16,31 +17,18 @@
         <div class="search-bar">Search...</div>
 
         <div class="actions">
-            <div class="btn">I LOST</div>
-            <div class="btn">I FOUND</div>
-        </div>
-
-        <div class="recent-title">Recent Activity</div>
-
-        <!-- Activity Item 1 -->
-        <div class="item-card">
-            <div class="item-img-placeholder">☒</div>
-            <div class="item-info">
-                <span class="item-name">Water bottle</span>
-                <span class="item-meta">2 mins ago</span>
-                <span class="item-meta">📍 Library</span>
-            </div>
-        </div>
-
-        <!-- Activity Item 2 -->
-        <div class="item-card">
-            <div class="item-img-placeholder">☒</div>
-            <div class="item-info">
-                <span class="item-name">Charging cable</span>
-                <span class="item-meta">2 mins ago</span>
-                <span class="item-meta">📍 Cafe</span>
-            </div>
-        </div>
+        <div class="btn" onclick="window.location.href='form2.html'">I LOST</div>
+        <div class="btn" onclick="window.location.href='form.html'">I FOUND</div>
     </div>
+
+       
+    <h2 class="recent-title">Recent Activity</h2>
+    <div id="activity-list">
+        </div>
+    
+
+
+    </div>
+    <script src="script.js"></script>
 </body>
 </html>
