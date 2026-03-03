@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="form-container">
+    <div class="tabs">
+        <div class="tab">Report Found</div>
+        <div class="tab active">Report Lost</div>
+    </div>
+
+    <div class="upload-box">
+        <div class="camera-icon">📷</div>
+        <p>Upload Reference Photo</p>
+        <input type="file" id="itemPhoto" style="display:none;" accept="image/*">
+    </div>
+
+    <select class="input-field" id="category">
+        <option disabled selected>Select Item Category</option>
+        <option>Electronics</option>
+        <option>Pets</option>
+        <option>Wallets/Keys</option>
+        <option>Other</option>
+    </select>
+
+    <input type="text" class="input-field" id="item-name" placeholder="Item Name (e.g. Blue Backpack)">
+    
+    <input type="text" class="input-field" id="location" placeholder="Last Seen Location/Area">
+
+    <textarea class="input-field multi-line" id="description" placeholder="Describe unique markings, brand, or contents..."></textarea>
+
+    <button class="submit-btn" id="submitBtn">Post Lost Report</button>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
