@@ -41,35 +41,5 @@
             <p id="detail-location" style="text-align: center; font-weight: bold;"></p>
         </div>
     </div>
-
-    <script>
-        async function loadDetails() {
-            // 1. Get the ID from the URL (?id=123)
-            const params = new URLSearchParams(window.location.search);
-            const id = params.get('id');
-
-            // 2. Fetch all items and find the one that matches the ID
-            const response = await fetch('/api/items');
-            const items = await response.json();
-            const item = items.find(i => i.id == id);
-
-            if (item) {
-                document.getElementById('detail-name').innerText = item.itemName;
-                document.getElementById('detail-description').innerText = item.description;
-                document.getElementById('detail-location').innerText = item.location;
-                
-                // Show image if it exists
-                if (item.image) {
-                    document.getElementById('item-image').innerHTML = `<img src="${item.image}" style="width:100%; height:100%; object-fit:cover; border-radius:12px;">`;
-                }
-
-                // Highlight the correct status tab
-                const statusId = `status-${item.status.toLowerCase()}`;
-                const activeTab = document.getElementById(statusId);
-                if (activeTab) activeTab.classList.add('active-status');
-            }
-        }
-        window.onload = loadDetails;
-    </script>
 </body>
 </html>
