@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MapuaWhere</title>
+    <title>Home | MapuaWhere</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -11,9 +11,9 @@
     <div class="phone-container">
         <input type="checkbox" id="menu-toggle" class="hidden-checkbox">
 
-        <header>
+        <header class="main-header">
             <div class="logo">
-                <img src="MapuaWhere/MapuaWhere_logo.png" alt="Logo" style="height: 40px;">
+                <img src="MapuaWhere_logo.png" alt="MapuaWhere" class="logo-img">
             </div>
 
             <label for="menu-toggle" class="toggle">
@@ -22,28 +22,54 @@
                 <span class="common bottom_line"></span>
             </label>
 
-            <nav class="sidebar">
-                <ul>
+            <nav class="mapuawhere-ver2">
+                <div class="auth-section">
+                    <button class="btn btn-auth">Sign In / Sign Out</button>
+                    <div class="account-header">Account</div>
+                </div>
+                
+                <ul class="nav-links list-unstyled">
                     <li><a href="index.html">Home</a></li>
-                    <li><a href="gallery.html">Gallery</a></li>
-                    <li><a href="form.html">Report Found</a></li>
-                    <li><a href="form2.html">Report Lost</a></li>
+                    <li><a href="gallery.html">Find / Browse Items</a></li>
+                    <li><a href="form.html">Report Lost / Found Item</a></li>
                 </ul>
+                
+                <div class="sidebar-footer mt-auto">
+                    <a href="#" class="help-link">Need Help?</a>
+                </div>
             </nav>
         </header>
 
-        <div class="search-bar">Search...</div>
+        <div class="content-body">
+            <div class="search-section">
+                <input type="text" class="search-bar" placeholder="Search items...">
+            </div>
 
-        <div class="actions">
-            <div class="btn" onclick="window.location.href='form2.html'">I LOST</div>
-            <div class="btn" onclick="window.location.href='form.html'">I FOUND</div>
-        </div>
+            <div class="actions">
+                <button class="btn btn-action" onclick="window.location.href='form2.html'">I LOST</button>
+                <button class="btn btn-action" onclick="window.location.href='form.html'">I FOUND</button>
+            </div>
 
-        <h2 class="recent-title">Recent Activity</h2>
-        <div id="activity-list">
+            <h2 class="recent-title">Recent Activity</h2>
+            
+            <div class="activity-feed">
+                <div class="item-card grid-item" onclick="window.location.href='details.html'">
+                    <div class="item-img-placeholder">☒</div>
+                    <div class="item-info">
+                        <span class="item-name">Water bottle</span>
+                        <span class="item-meta">2 mins ago • 📍 Library</span>
+                    </div>
+                </div>
+                <div class="item-card grid-item mt-3" onclick="window.location.href='details.html'">
+                    <div class="item-img-placeholder">☒</div>
+                    <div class="item-info">
+                        <span class="item-name">Silver Watch</span>
+                        <span class="item-meta">📍 Main Lobby</span>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-
-    <script src="script.js"></script>
+<script src="script.js"></script>
 </body>
 </html>

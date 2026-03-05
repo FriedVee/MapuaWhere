@@ -1,250 +1,17 @@
-/*index.html*/
-body { 
-            font-family: Arial, sans-serif; 
-            margin: 0; background: #f9f9f9; 
-            display: flex; 
-            justify-content: center; 
-        }
-/* Update your styles.css with this */
-.phone-container {
-    width: 375px;
-    height: 812px; /* Fixed height like a real phone */
-    background: white;
-    border: 12px solid #222; /* Thick border to look like an iPhone frame */
-    border-radius: 45px;
-    overflow-y: auto; /* THIS ENABLES SCROLLING */
-    position: relative;
-    scrollbar-width: none; /* Hides scrollbar for Firefox */
-}
-
-/* Hide scrollbar for Chrome/Safari */
-.phone-container::-webkit-scrollbar {
-    display: none;
-}
-
-.item-main-photo {
+/* ==========================================
+   CARLOS'S CONTRIBUTIONS: 
+   - Hamburger animation and toggle logic
+   ========================================== */
+.common {
+    height: 3px;
     width: 100%;
-    aspect-ratio: 1 / 1;
-    background-color: #f8f9fa;
-    border-radius: 10px;
+    background-color: #d82f2f; 
+    transition: 0.3s;
 }
 
-.status-header .btn {
-    font-size: 10px;
-    letter-spacing: 1px;
+#menu-toggle { 
+    display: none; 
 }
-
-/* Ensure the sticky header stays at the top of the phone screen */
-.sticky-top {
-    z-index: 1020;
-}
-header {
-    background-color: #ffffff; /* Red background matching the logo */
-    padding: 10px 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    color: white; 
-}
-
-/*Logo */
-.logo {
-    background: transparent;
-    border: none;
-}
-
-/* Menu */
-.menu-icon {
-    color: #d82f2f; 
-    font-size: 24px;
-    cursor: pointer;
-}
-        /* Search Bar */
-        .search-bar { 
-            border-radius: 15px;
-            padding: 10px; width: 100%; 
-            box-sizing: border-box; 
-            margin-bottom: 20px; 
-            background-color: #cac6c6;
-            color: #666; }
-
-        /* Action Buttons */
-        .actions { display: flex; gap: 10px; margin-bottom: 30px; }
-        .btn { flex: 1; border: 2px solid black; padding: 15px; text-align: center; font-weight: bold; cursor: pointer; }
-
-        /* Recent Activity List */
-        .recent-title { font-weight: bold; font-size: 18px; margin-bottom: 15px; }
-        .item-card { border: 2px solid black; display: flex; padding: 10px; margin-bottom: 10px; border-radius: 5px; }
-        .item-img-placeholder { width: 60px; height: 60px; border: 2px solid black; margin-right: 15px; display: flex; align-items: center; justify-content: center; }
-        .item-info { display: flex; flex-direction: column; justify-content: center; }
-        .item-name { font-weight: bold; margin-bottom: 2px; }
-        .item-meta { font-size: 12px; color: #666; }
-        img {
-            width: 100px;
-        }
-
-        /*form.html*/
-        .form-container {
-        width: 340px;
-        margin: auto;
-        padding: 20px;
-        font-family: sans-serif;
-    }
-
-    /* Tabs Styling */
-    .tabs {
-        display: flex;
-        border: 2px solid #333;
-        border-radius: 8px; /* Rounded corners */
-        overflow: hidden;
-        margin-bottom: 20px;
-    }
-    .tab {
-        flex: 1;
-        padding: 10px;
-        text-align: center;
-        background: #eee;
-        cursor: pointer;
-    }
-    .tab.active { background: #ccc; border-right: 2px solid #333; }
-
-    /* Upload Box with Dashed Border */
-    .upload-box {
-        border: 2px dashed #333;
-        border-radius: 12px;
-        height: 150px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        margin-bottom: 20px;
-    }
-
-    /* Input Styling */
-    .input-field {
-        width: 100%;
-        padding: 12px;
-        margin-bottom: 12px;
-        border: 2px solid #333;
-        border-radius: 8px; /* Rounded edges */
-        box-sizing: border-box; /* Keeps padding inside width */
-        font-size: 16px;
-    }
-    .multi-line { height: 100px; resize: none; }
-
-    /* Submit Button Styling */
-    .submit-btn {
-        width: 100%;
-        padding: 15px;
-        background: white;
-        border: 2px solid #333;
-        border-radius: 10px;
-        font-weight: bold;
-        cursor: pointer;
-    }
-
-.gallery-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-bottom: 15px;
-}
-
-.logo-text { font-weight: bold; color: #d82f2f; font-size: 1.1rem; }
-.menu-icon { font-size: 24px; color: #d82f2f; cursor: pointer; }
-
-/* 4. Filter Bar (Scrolls left to right) */
-.filter-scroll {
-    display: flex;
-    gap: 8px;
-    overflow-x: auto;
-    padding: 10px 0 20px 0;
-    -ms-overflow-style: none; /* Hide scrollbar Firefox */
-    scrollbar-width: none; /* Hide scrollbar IE */
-}
-.filter-scroll::-webkit-scrollbar { display: none; } /* Hide scrollbar Chrome */
-
-/* 5. The 2-Column Grid */
-.item-grid-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 15px;
-}
-
-.grid-item {
-    border: 2px solid black;
-    border-radius: 12px;
-    text-decoration: none;
-    color: black;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-}
-
-.img-box {
-    aspect-ratio: 1/1;
-    background: #eee;
-    border-bottom: 2px solid black;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-.img-box span { font-size: 30px; color: #ccc; }
-
-.item-details { padding: 8px; }
-.name { display: block; font-weight: bold; font-size: 13px; }
-.loc { display: block; font-size: 11px; color: #666; margin-top: 3px; }
-
-/* 6. Footer Fixed to Bottom */
-.gallery-footer {
-    margin-top: auto; /* Pushes it to the bottom */
-    padding: 20px 0 10px 0;
-    text-align: center;
-    border-top: 2px solid black;
-    font-size: 12px;
-    font-weight: bold;
-}
-
-/*details.html*/
-/* Details Page Styling */
-.status-tabs {
-    display: flex;
-    border: 2px solid black;
-    margin-bottom: 20px;
-}
-.s-tab {
-    flex: 1;
-    padding: 10px;
-    text-align: center;
-    font-size: 12px;
-    font-weight: bold;
-    border-right: 1px solid black;
-    background: #eee;
-}
-.active-status { background: #333; color: white; }
-
-.detail-img-box {
-    width: 100%;
-    aspect-ratio: 1/1;
-    border: 2px solid black;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 20px;
-}
-.detail-info h2 { margin: 0 0 10px 0; color: #d82f2f; }
-.detail-info p { line-height: 1.5; color: #444; }
-
-.map-container {
-    margin-top: 20px;
-    border: 2px solid black;
-    border-radius: 12px;
-    padding: 10px;
-    position: relative;
-}
-.map-box { background: #fafafa; min-height: 100px; position: relative; }
-.map-pin { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 24px; }
 
 .toggle {
     width: 30px;
@@ -253,100 +20,139 @@ header {
     flex-direction: column;
     justify-content: space-between;
     cursor: pointer;
-    z-index: 100;
+    z-index: 2001; 
 }
 
-/* added by carlos */
-.common {
-    height: 3px;
-    width: 100%;
-    background-color: #d82f2f; 
-    transition: 0.3s;
-}
-
-/* added by carlos */
-#menu-toggle {
-    display: none;
-}
-
-/* added by carlos */
-/* stylize sidebar */
-.sidebar {
+/* ==========================================
+   LOUISE'S CONTRIBUTIONS:
+   - Sidebar slide-from-left transition
+   - Flexbox vertical stacking and Auth UI
+   ========================================== */
+.mapuawhere-ver2 {
     position: absolute;
-    top: 35px;
-    right: 0;
-    width: 150px;
+    top: 0;
+    left: -100%; /* Hidden off-screen */
+    width: 80%;  
+    height: 100%;
     background: white;
-    box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
-    border-radius: 10px;
-    transition: 0.4s ease;
-    z-index: 99;
-    opacity: 0;
-    visibility: hidden;
+    border-right: 2px solid #333;
+    padding: 80px 20px 40px 20px; 
+    transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1); 
+    display: flex;
+    flex-direction: column;
+    z-index: 2000; 
+    box-shadow: 5px 0 15px rgba(0,0,0,0.1);
 }
 
-/* added by carlos */
-/* sidebar menu items */
-.sidebar ul {
-    list-style-type: none; /* Corrects list style for navigation */
+/* Sidebar Trigger Logic */
+#menu-toggle:checked ~ .main-header .mapuawhere-ver2 {
+    left: 0;
+}
+
+.auth-section { margin-bottom: 20px; }
+.btn-auth {
+    width: 100%;
     padding: 10px;
-    margin: 0;
+    border: 2px solid black;
+    background: white;
+    font-weight: bold;
+    margin-bottom: 10px;
 }
 
-.sidebar ul li a {
-    text-decoration: none;
-    color: #333;
+.account-header {
+    font-size: 0.9rem;
+    font-weight: bold;
+    border-bottom: 1px solid #333;
+    padding-bottom: 5px;
+}
+
+.nav-links { list-style: none; padding: 0; }
+.nav-links a {
     display: block;
-    padding: 8px 0;
+    padding: 15px 0;
+    font-weight: bold;
+    color: black;
+    text-decoration: none;
+    font-size: 1.1rem;
 }
 
-#menu-toggle:checked ~ header .sidebar {
-    opacity: 1;
-    visibility: visible;
+/* ==========================================
+   CORE ALIGNED STYLES (MapuaWhere) - IVORY
+   ========================================== */
+body { 
+    font-family: Arial, sans-serif; 
+    margin: 0; 
+    background: #f0f0f0; 
+    display: flex; 
+    justify-content: center; 
+    padding: 50px 0; /* Clear toggle visibility */
 }
 
-/* added by carlos */
 .phone-container {
-    background: transparent;
+    width: 375px; 
+    height: 812px; 
+    background: white; 
+    border: 12px solid #222; 
+    border-radius: 45px; 
+    position: relative; 
+    overflow: hidden; /* Contains sidebar inside phone */
+}
+
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid #eee;
+}
+
+.logo-img { height: 35px; }
+
+.search-bar { 
+    width: 100%;
+    padding: 12px;
+    border-radius: 12px;
     border: none;
-    box-shadow: none;
-    border-radius: 0;
-    height: auto;
-    overflow: visible;
+    background-color: #e0e0e0;
+    margin: 20px 0;
+    box-sizing: border-box;
 }
 
-/* added by carlos */
-body {
-    padding-top: 20px;
+.actions { display: flex; gap: 15px; margin-bottom: 30px; padding: 0 20px; }
+.btn-action {
+    flex: 1;
+    background: white;
+    border: 2px solid black;
+    padding: 15px;
+    font-weight: bold;
 }
 
-/* added by carlos */
-/* positions the sidebar menu */
-.toggle {
-    position: absolute;
-    top: -10px;
-    right: 0;
+.recent-title { padding: 0 20px; margin-bottom: 15px; font-weight: 800; }
+.activity-feed { padding: 0 20px; }
+.item-card {
+    border: 2px solid black;
+    display: flex;
+    padding: 12px;
+    border-radius: 8px;
+    align-items: center;
 }
 
-/* added by carlos */
-/* creates the border for the dropdown box when the menu is clicked */
-.sidebar {
-    top: 35px;
-    border: 1px solid #333;
-    transform: translateY(-10px);
+.item-img-placeholder {
+    width: 50px;
+    height: 50px;
+    border: 2px solid black;
+    margin-right: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-/* added by carlos */
-/* toggles the visibility for the menu when pressed */
-#menu-toggle:checked ~ .sidebar {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-}
-
-/* added by carlos */
-/* aligns the text in the menu */
-.sidebar ul li a {
-    text-align: left;
-    padding: 10px 15px;
-}
+/* Louise: Hover Transitions */
+.btn-action:hover {
+     background: #333; 
+     color: white; 
+     transition: 0.2s; }
+.grid-item:hover { 
+     transform: scale(1.02); 
+     transition: 0.2s; 
+    }

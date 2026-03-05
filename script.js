@@ -21,4 +21,10 @@
 
             alert("Item marked as resolved at " + timestamp);
         }
+
+        function toggleCollabSidebar() {
+    const sidebar = document.getElementById('collab-sidebar');
+    // Collaborator's active class trigger
+    sidebar.classList.toggle('active');
+}
     
