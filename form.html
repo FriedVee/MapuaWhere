@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report Item - MapuaWhere</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="phone-container">
+
+    <!-- Sidebar -->
+    <div id="sidebar" class="sidebar">
+        <a href="index.html">Home</a>
+        <a href="gallery.html">Browse Items</a>
+        <a href="form.html">Report Item</a>
+        <a href="#">Help</a>
+    </div>
+
+    <header>
+        <div class="logo-text">MapuaWhere</div>
+        <div class="menu-icon" onclick="toggleSidebar()">☰</div>
+    </header>
+
+    <div class="form-container">
+
+        <!-- Tabs -->
+        <div class="tabs">
+            <div class="tab active" onclick="switchTab('found')">Report Found</div>
+            <div class="tab" onclick="switchTab('lost')">Report Lost</div>
+        </div>
+
+        <!-- Upload -->
+        <div class="upload-box" onclick="document.getElementById('itemPhoto').click();">
+            <div class="camera-icon">📷</div>
+            <p>Upload Photo of Item</p>
+            <input type="file" id="itemPhoto" style="display:none;" accept="image/*">
+        </div>
+
+        <!-- Category -->
+        <select class="input-field">
+            <option disabled selected>Select Category</option>
+            <option>Electronics</option>
+            <option>Pets/Animals</option>
+            <option>Wallets/Keys/IDs</option>
+            <option>Clothing/Accessories</option>
+        </select>
+
+        <!-- Item Name -->
+        <input type="text" class="input-field" placeholder="General Item Name (e.g. Silver Watch)">
+
+        <!-- Location -->
+        <input type="text" class="input-field" placeholder="Location (Building / Area)">
+
+        <!-- Description -->
+        <textarea class="input-field multi-line"
+            placeholder="General description (Brand, color, etc.). Keep one unique detail secret to verify owner."></textarea>
+
+        <!-- Submit -->
+        <button class="submit-btn" onclick="alert('Item submitted successfully! (Demo only)')">
+            Submit Report
+        </button>
+
+    </div>
+
+    <!-- Footer -->
+    <div class="gallery-footer">
+        © 2026 MapuaWhere
+    </div>
+
+</div>
+
+<script>
+function toggleSidebar() {
+    const sidebar = document.getElementById("sidebar");
+    sidebar.classList.toggle("active");
+}
+
+function switchTab(type) {
+    const tabs = document.querySelectorAll(".tab");
+    tabs.forEach(tab => tab.classList.remove("active"));
+
+    if(type === "found") {
+        tabs[0].classList.add("active");
+    } else {
+        tabs[1].classList.add("active");
+    }
+}
+</script>
+
+</body>
+</html>

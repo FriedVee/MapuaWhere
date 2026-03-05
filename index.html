@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MapuaWhere - Home</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="phone-container">
+
+        <!-- Sidebar -->
+        <div id="sidebar" class="sidebar">
+            <a href="index.html">Home</a>
+            <a href="gallery.html">Browse Items</a>
+            <a href="form.html">Report Item</a>
+            <a href="#">Help</a>
+        </div>
+
+        <header>
+            <div class="logo-text">MapuaWhere</div>
+            <div class="menu-icon" onclick="toggleSidebar()">☰</div>
+        </header>
+
+        <input type="text" class="search-bar" placeholder="Search...">
+
+        <div class="actions">
+            <div class="btn" onclick="window.location.href='form2.html'">I LOST</div>
+            <div class="btn" onclick="window.location.href='form.html'">I FOUND</div>
+        </div>
+
+        <h2 class="recent-title">Recent Activity</h2>
+
+        <div class="item-card">
+            <div class="item-img-placeholder">📦</div>
+            <div class="item-info">
+                <div class="item-name">Water Bottle</div>
+                <div class="item-meta">2 mins ago • Library</div>
+            </div>
+        </div>
+
+        <div class="item-card">
+            <div class="item-img-placeholder">🔌</div>
+            <div class="item-info">
+                <div class="item-name">Charging Cable</div>
+                <div class="item-meta">5 mins ago • Cafeteria</div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="gallery-footer">
+            © 2026 MapuaWhere
+        </div>
+
+    </div>
+
+<script>
+function toggleSidebar() {
+    const sidebar = document.getElementById("sidebar");
+    sidebar.classList.toggle("active");
+}
+</script>
+
+</body>
+</html>
