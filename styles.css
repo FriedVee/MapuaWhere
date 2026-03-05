@@ -1,22 +1,43 @@
-
-       /*index.html*/
+/*index.html*/
 body { 
             font-family: Arial, sans-serif; 
             margin: 0; background: #f9f9f9; 
             display: flex; 
             justify-content: center; 
         }
+/* Update your styles.css with this */
 .phone-container {
-             width: 375px; 
-              
-             border-radius: 40px; 
-             height: 812px; 
-             background: white; 
-             overflow-y: auto; 
-             padding: 20px; 
-             box-sizing: border-box; 
-             position: relative;}
-        
+    width: 375px;
+    height: 812px; /* Fixed height like a real phone */
+    background: white;
+    border: 12px solid #222; /* Thick border to look like an iPhone frame */
+    border-radius: 45px;
+    overflow-y: auto; /* THIS ENABLES SCROLLING */
+    position: relative;
+    scrollbar-width: none; /* Hides scrollbar for Firefox */
+}
+
+/* Hide scrollbar for Chrome/Safari */
+.phone-container::-webkit-scrollbar {
+    display: none;
+}
+
+.item-main-photo {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    background-color: #f8f9fa;
+    border-radius: 10px;
+}
+
+.status-header .btn {
+    font-size: 10px;
+    letter-spacing: 1px;
+}
+
+/* Ensure the sticky header stays at the top of the phone screen */
+.sticky-top {
+    z-index: 1020;
+}
 header {
     background-color: #ffffff; /* Red background matching the logo */
     padding: 10px 20px;
@@ -143,17 +164,6 @@ header {
 }
 .filter-scroll::-webkit-scrollbar { display: none; } /* Hide scrollbar Chrome */
 
-.chip {
-    border: 2px solid black;
-    border-radius: 20px;
-    padding: 6px 14px;
-    background: white;
-    font-weight: bold;
-    font-size: 12px;
-    white-space: nowrap;
-}
-.chip.active { background: #333; color: white; }
-
 /* 5. The 2-Column Grid */
 .item-grid-container {
     display: grid;
@@ -193,4 +203,150 @@ header {
     border-top: 2px solid black;
     font-size: 12px;
     font-weight: bold;
+}
+
+/*details.html*/
+/* Details Page Styling */
+.status-tabs {
+    display: flex;
+    border: 2px solid black;
+    margin-bottom: 20px;
+}
+.s-tab {
+    flex: 1;
+    padding: 10px;
+    text-align: center;
+    font-size: 12px;
+    font-weight: bold;
+    border-right: 1px solid black;
+    background: #eee;
+}
+.active-status { background: #333; color: white; }
+
+.detail-img-box {
+    width: 100%;
+    aspect-ratio: 1/1;
+    border: 2px solid black;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+.detail-info h2 { margin: 0 0 10px 0; color: #d82f2f; }
+.detail-info p { line-height: 1.5; color: #444; }
+
+.map-container {
+    margin-top: 20px;
+    border: 2px solid black;
+    border-radius: 12px;
+    padding: 10px;
+    position: relative;
+}
+.map-box { background: #fafafa; min-height: 100px; position: relative; }
+.map-pin { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 24px; }
+
+.toggle {
+    width: 30px;
+    height: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    cursor: pointer;
+    z-index: 100;
+}
+
+/* added by carlos */
+.common {
+    height: 3px;
+    width: 100%;
+    background-color: #d82f2f; 
+    transition: 0.3s;
+}
+
+/* added by carlos */
+#menu-toggle {
+    display: none;
+}
+
+/* added by carlos */
+/* stylize sidebar */
+.sidebar {
+    position: absolute;
+    top: 35px;
+    right: 0;
+    width: 150px;
+    background: white;
+    box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+    border-radius: 10px;
+    transition: 0.4s ease;
+    z-index: 99;
+    opacity: 0;
+    visibility: hidden;
+}
+
+/* added by carlos */
+/* sidebar menu items */
+.sidebar ul {
+    list-style-type: none; /* Corrects list style for navigation */
+    padding: 10px;
+    margin: 0;
+}
+
+.sidebar ul li a {
+    text-decoration: none;
+    color: #333;
+    display: block;
+    padding: 8px 0;
+}
+
+#menu-toggle:checked ~ header .sidebar {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* added by carlos */
+.phone-container {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    border-radius: 0;
+    height: auto;
+    overflow: visible;
+}
+
+/* added by carlos */
+body {
+    padding-top: 20px;
+}
+
+/* added by carlos */
+/* positions the sidebar menu */
+.toggle {
+    position: absolute;
+    top: -10px;
+    right: 0;
+}
+
+/* added by carlos */
+/* creates the border for the dropdown box when the menu is clicked */
+.sidebar {
+    top: 35px;
+    border: 1px solid #333;
+    transform: translateY(-10px);
+}
+
+/* added by carlos */
+/* toggles the visibility for the menu when pressed */
+#menu-toggle:checked ~ .sidebar {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+/* added by carlos */
+/* aligns the text in the menu */
+.sidebar ul li a {
+    text-align: left;
+    padding: 10px 15px;
 }

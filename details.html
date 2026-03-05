@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <title>Item Details | MapuaWhere</title>
+</head>
+<body class="bg-light d-flex justify-content-center">
+
+    <div class="phone-container bg-white shadow-lg my-4 p-0 overflow-hidden">
+        <input type="checkbox" id="menu-toggle" class="hidden-checkbox">
+        
+        <nav class="sidebar" style="z-index: 2000; top: 60px;">
+            <ul class="list-unstyled mb-0">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="form.html">Report Found</a></li>
+                <li><a href="form2.html">Report Lost</a></li>
+            </ul>
+        </nav>
+
+        <header class="gallery-header p-3 border-bottom bg-white sticky-top d-flex justify-content-between align-items-center" style="z-index: 1050;">
+            <div class="logo-text fw-bold text-danger fs-4" onclick="window.location.href='index.html'" style="cursor:pointer">
+                MapuaWhere
+            </div>
+            
+            <label for="menu-toggle" class="toggle" style="position: relative; top: 0; right: 0; z-index: 2001;">
+                <span class="common top_line"></span>
+                <span class="common middle_line"></span>
+                <span class="common bottom_line"></span>
+            </label>
+        </header>
+
+        <div class="d-flex status-header border-bottom bg-white">
+            <button class="btn btn-dark flex-grow-1 border-end rounded-0 py-2 small">LOST</button>
+            <button class="btn btn-outline-dark flex-grow-1 border-end rounded-0 py-2 small">FOUND</button>
+            <button class="btn btn-outline-dark flex-grow-1 rounded-0 py-2 small">RESOLVED</button>
+        </div>
+
+        <div class="p-4">
+            <div class="item-main-photo border border-2 border-dark mb-4 d-flex align-items-center justify-content-center bg-light">
+                <span class="display-1 text-muted">☒</span>
+            </div>
+
+            <div class="mb-4">
+                <h5 class="fw-bold mb-2">Item Specifications</h5>
+                <table class="table table-bordered border-dark small">
+                    <tbody>
+                        <tr><th class="w-25 bg-light">Name</th><td>Silver Watch</td></tr>
+                        <tr><th class="bg-light">Location</th><td>Main Lobby</td></tr>
+                        <tr><th class="bg-light">Details</th><td>Found near the elevator core. Chrome finish.</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <a href="http://googleusercontent.com/maps.google.com/4" target="_blank" class="text-decoration-none text-dark">
+                <h6 class="fw-bold text-uppercase mb-2 text-muted" style="font-size: 0.7rem;">Campus Map (Click to View)</h6>
+                <div class="map-wrapper border border-2 border-dark rounded-3 p-2 mb-4 bg-white shadow-sm">
+                    <svg viewBox="0 0 400 300" class="w-100" style="background: #fafafa;">
+                        <path d="M40,60 L340,80 L370,260 L60,280 L20,240 Z" fill="none" stroke="#222" stroke-width="2.5"/>
+                        <rect x="180" y="130" width="18" height="25" fill="#222" />
+                        <rect x="202" y="130" width="18" height="25" fill="#222" />
+                        <text x="195" y="220" font-size="12" text-anchor="middle" fill="#555" font-weight="bold">MAIN LOBBY</text>
+                        <text x="165" y="150" font-size="28">📍</text>
+                    </svg>
+                </div>
+            </a>
+
+            <h6 class="fw-bold text-uppercase border-bottom pb-2 mb-3" style="font-size: 0.7rem;">Activity Log</h6>
+            <ul class="list-group list-group-flush mb-4 small" id="activity-log">
+                <li class="list-group-item d-flex justify-content-between p-2">
+                    <span>Reported</span>
+                    <span class="text-muted small">Mar 05, 10:00 AM</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between p-2 fw-bold text-danger">
+                    <span>Status</span>
+                    <span id="current-status-text">Awaiting Return</span>
+                </li>
+            </ul>
+
+            <button class="btn btn-dark w-100 fw-bold py-3 mb-5 shadow-sm" onclick="markResolved()">
+                MARK AS RESOLVED
+            </button>
+        </div>
+    </div>
+
+ <script src="script.js"></script>
+</body>
+</html>
