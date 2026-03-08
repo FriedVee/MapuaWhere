@@ -1,0 +1,597 @@
+/**
+ * MapúaWhere — Client-Side Logic
+ * Author : [Your Name]
+ * Course : ITS121 Web Systems and Technologies
+ * Purpose: Handles UI interactions, client-side validation,
+ *          data loading from the Express API, and DOM updates
+ *          for all pages (index, gallery, details, forms).
+ * ─────────────────────────────────────────────────────────────
+ */
+
+/* ============================================================
+   SECTION 0: PROTOTYPE DATA
+   Contribution: [Your Name]
+   Hardcoded demo items used when the backend API is offline.
+   Image filenames match exactly what is in public/uploads/.
+   ============================================================ */
+
+const PROTOTYPE_ITEMS = [
+  {
+    id: 1,
+    category: 'Clothing/Accessories',
+    itemName: 'Totoro Pouch',
+    location: '2nd Floor Bathroom',
+    description: 'Totoro Pouch with mini cabbage and star keychain on it and coins inside.',
+    status: 'resolved',
+    contact: 'Honey Lee',        // Found By
+    phone: '0123456798',
+    returnedTo: 'Janina Yu',
+    returnedToPhone: '0163456789',
+    image: 'uploads/Totoro_Pouch.jpg',
+    timestamp: '3/9/2026, 2:30pm',
+    displayTime: '3/9/2026, 2:30pm',
+  },
+  {
+    id: 2,
+    category: 'Clothing/Accessories',
+    itemName: 'Bracelet',
+    location: '2nd Floor Bathroom',
+    description: 'Beaded bracelet with blue beads and white beads with black star on it.',
+    status: 'found',
+    contact: 'Janina Yu',
+    phone: '0163456789',
+    image: '/uploads/Bracelet.jpg',
+    timestamp: '3/9/2026, 2:30pm',
+    displayTime: '3/9/2026, 2:30pm',
+  },
+  {
+    id: 3,
+    category: 'Wallets/Keys/IDs',
+    itemName: 'Keys',
+    location: 'Back Entrance',
+    description: '3 keys, one black and two plain silver, it has a kraftvear & n1 keychain and a self defense alarm.',
+    status: 'found',
+    contact: 'Alaina Kim',
+    phone: '0173456789',
+    image: '/uploads/Keys.jpg',
+    timestamp: '3/9/2026, 2:30pm',
+    displayTime: '3/9/2026, 2:30pm',
+  },
+  {
+    id: 4,
+    category: 'Electronics',
+    itemName: 'Airpods',
+    location: 'Ground Floor Bathroom',
+    description: 'Pink Airpods pro with black lace to use it as a keychain.',
+    status: 'lost',
+    contact: 'Honey Lee',
+    phone: '0123456798',
+    image: '/uploads/Aipods.jpg',
+    timestamp: '3/9/2026, 2:30pm',
+    displayTime: '32 Mins Ago',   // shown in Recent Activity
+  },
+  {
+    id: 5,
+    category: 'Electronics',
+    itemName: 'Charging Cable',
+    location: 'Cafeteria',
+    description: 'White iphone charger with clear cover that has silver ribbon design.',
+    status: 'lost',
+    contact: 'Ivy Em',
+    phone: '0123456789',
+    image: '/uploads/Charging Cable Picture.jpg',
+    timestamp: '3/9/2026, 2:30pm',
+    displayTime: '1 Hour Ago',    // shown in Recent Activity
+  },
+  {
+    id: 6,
+    category: 'Other',
+    itemName: 'Water Bottle',
+    location: 'Library',
+    description: 'Blue water bottle with stickers on it.',
+    status: 'lost',
+    contact: 'Carlos Reyes',
+    phone: '0195812345',
+    image: '/uploads/Water Bottle Picture.jpg',
+    timestamp: '3/9/2026, 2:30pm',
+    displayTime: '2 Mins Ago',    // shown in Recent Activity
+  },
+];
+
+/**
+ * Fetches items from the Express API.
+ * Falls back to PROTOTYPE_ITEMS if the server is offline or
+ * the database is empty — keeps the demo working at all times.
+ * @returns {Promise<Array>}
+ */
+async function getItems() {
+  try {
+    const res = await fetch('/api/items');
+    if (!res.ok) throw new Error('non-ok');
+    const data = await res.json();
+    return data.length ? data : PROTOTYPE_ITEMS;
+  } catch {
+    return PROTOTYPE_ITEMS;
+  }
+}
+
+
+/* ============================================================
+   SECTION 1: TOAST NOTIFICATION UTILITY
+   Contribution: [Your Name]
+   Displays a non-blocking message at the bottom of the screen
+   instead of browser alert() for a more polished UX.
+   ============================================================ */
+
+/**
+ * Shows a toast notification that auto-dismisses.
+ * @param {string} message - Text to display
+ * @param {'success'|'error'|'info'} [type='info'] - Toast style
+ * @param {number} [duration=3000] - Display time in ms
+ */
+function showToast(message, type = 'info', duration = 3000) {
+  // Remove any existing toast to prevent overlap
+  const existing = document.querySelector('.toast');
+  if (existing) existing.remove();
+
+  const toast = document.createElement('div');
+  toast.className = `toast ${type === 'success' ? 'toast-success' : type === 'error' ? 'toast-error' : ''}`;
+  toast.textContent = message;
+
+  // Toast needs to be inside the phone container to position correctly
+  const container = document.querySelector('.phone-container') ?? document.body;
+  container.appendChild(toast);
+
+  // Trigger the CSS transition on the next frame
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => toast.classList.add('show'));
+  });
+
+  setTimeout(() => {
+    toast.classList.remove('show');
+    setTimeout(() => toast.remove(), 300);
+  }, duration);
+}
+
+
+/* ============================================================
+   SECTION 2: SIDEBAR NAVIGATION
+   Contribution: [Your Name]
+   Opens / closes the slide-in left sidebar. The overlay
+   click and Escape key both close it.
+   ============================================================ */
+
+/* CONTRIBUTION BY: [YOUR NAME] — Fixed Sidebar Handshake */
+
+/* FIXED SIDEBAR LOGIC — CONTRIBUTION BY: [YOUR NAME] */
+
+function toggleMenu() {
+  const sidebar = document.getElementById('sidebar');
+  const overlay = document.getElementById('sidebar-overlay');
+  
+  // We use 'open' because your styles.css (Section 14) uses .sidebar.open
+  sidebar?.classList.toggle('open');
+  overlay?.classList.toggle('open');
+}
+
+function closeSidebar() {
+  document.getElementById('sidebar')?.classList.remove('open');
+  document.getElementById('sidebar-overlay')?.classList.remove('open');
+}
+
+function initSidebar() {
+  // Ensures clicking the dark overlay closes the menu
+  document.getElementById('sidebar-overlay')?.addEventListener('click', closeSidebar);
+  
+  // Closes menu if 'Escape' key is pressed
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeSidebar();
+  });
+}
+
+
+/* ============================================================
+   SECTION 3: PHOTO UPLOAD BOX
+   Contribution: [Your Name]
+   Makes the dashed upload area clickable and shows a preview
+   of the selected image inside the box.
+   ============================================================ */
+
+function initUploadBox() {
+  const uploadBox = document.querySelector('#upload-box');
+  const fileInput = document.getElementById('itemPhoto');
+  if (!uploadBox || !fileInput) return;
+
+  // Click on box triggers hidden file input
+  uploadBox.addEventListener('click', () => fileInput.click());
+
+  // Keyboard accessibility: Enter or Space also triggers it
+  uploadBox.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      fileInput.click();
+    }
+  });
+
+  fileInput.addEventListener('change', () => {
+    if (!fileInput.files?.length) return;
+    const file = fileInput.files[0];
+
+    // Show image preview inside the upload box
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      uploadBox.innerHTML = `
+        <img src="${e.target.result}" class="upload-preview" alt="Preview">
+        <div style="position:absolute;bottom:8px;right:8px;background:rgba(0,0,0,.5);
+                    color:white;font-size:11px;padding:3px 8px;border-radius:99px;">
+          ✏️ Change
+        </div>
+      `;
+      uploadBox.classList.add('has-image');
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+
+/* ============================================================
+   SECTION 4: CLIENT-SIDE FORM VALIDATION
+   Contribution: [Your Name]
+   Validates all required fields before the API call is made,
+   highlights errors inline, and returns a boolean pass/fail.
+   ============================================================ */
+
+/**
+ * Validates a single input field.
+ * @param {string} fieldId - ID of the input element
+ * @param {string} errorId - ID of the <span> showing the error
+ * @returns {boolean} true if field is valid
+ */
+function validateField(fieldId, errorId) {
+  const field = document.getElementById(fieldId);
+  const error = document.getElementById(errorId);
+  if (!field || !error) return true;
+
+  const isEmpty = field.value.trim() === '' || field.value === '';
+  field.classList.toggle('error', isEmpty);
+  error.classList.toggle('show', isEmpty);
+
+  return !isEmpty;
+}
+
+/**
+ * Runs all form validations and scrolls to the first error.
+ * @returns {boolean} true if all required fields pass
+ */
+function validateForm() {
+  const checks = [
+    validateField('category',    'error-category'),
+    validateField('item-name',   'error-item-name'),
+    validateField('location',    'error-location'),
+    validateField('description', 'error-description'),
+  ];
+
+  const isValid = checks.every(Boolean);
+
+  if (!isValid) {
+    const firstError = document.querySelector('.input-field.error');
+    firstError?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    showToast('Please fill in all required fields.', 'error');
+  }
+
+  return isValid;
+}
+
+// Live validation: clear the error as soon as the user types/selects
+function initLiveValidation() {
+  const pairs = [
+    ['category',    'error-category'],
+    ['item-name',   'error-item-name'],
+    ['location',    'error-location'],
+    ['description', 'error-description'],
+  ];
+
+  pairs.forEach(([fieldId, errorId]) => {
+    const field = document.getElementById(fieldId);
+    if (!field) return;
+    field.addEventListener('input', () => validateField(fieldId, errorId));
+    field.addEventListener('change', () => validateField(fieldId, errorId));
+  });
+}
+
+
+/* ============================================================
+   SECTION 5: FORM SUBMIT HANDLER
+   Contribution: [Your Name]
+   Collects form data, validates it, then POSTs to /api/report.
+   ============================================================ */
+
+function initSubmitBtn() {
+  const submitBtn = document.getElementById('submitBtn');
+  if (!submitBtn) return;
+
+  submitBtn.addEventListener('click', async () => {
+    if (!validateForm()) return;
+
+    submitBtn.classList.add('loading');
+    submitBtn.disabled = true;
+
+    const fileInput  = document.getElementById('itemPhoto');
+    const formData   = new FormData();
+    if (fileInput?.files?.length) {
+      formData.append('itemPhoto', fileInput.files[0]);
+    }
+    formData.append('category',    document.getElementById('category')?.value    ?? '');
+    formData.append('itemName',    document.getElementById('item-name')?.value   ?? '');
+    formData.append('location',    document.getElementById('location')?.value    ?? '');
+    formData.append('description', document.getElementById('description')?.value ?? '');
+
+    const isLost = window.location.pathname.includes('lostform');
+    formData.append('status', isLost ? 'lost' : 'found');
+
+    try {
+      const response = await fetch('/api/report', {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (response.ok) {
+        showToast('Your report has been posted!', 'success', 3000);
+        setTimeout(() => window.location.href = 'index.html', 1500);
+      } else {
+        showToast('Server error — please try again.', 'error');
+      }
+    } catch (err) {
+      console.error('[MapúaWhere] Submit error:', err);
+      showToast('Connection failed. Is the server running?', 'error');
+    } finally {
+      submitBtn.classList.remove('loading');
+      submitBtn.disabled = false;
+    }
+  });
+}
+
+
+/* ============================================================
+   SECTION 6: HOME PAGE — Recent Activity
+   Contribution: [Your Name]
+   Shows the 3 specific missing items with hardcoded time-ago
+   strings exactly as specified for the prototype demo.
+   ============================================================ */
+
+async function loadRecentActivity() {
+  const container = document.getElementById('activity-list');
+  if (!container) return;
+
+  // Use only the 3 missing (lost) items for Recent Activity,
+  // displayed in the order: Water Bottle → Charging Cable → Airpods
+  const RECENT = [
+    { id: 6, name: 'Water Bottle',    timeAgo: '2 Mins Ago',   location: 'Library',              image: '/uploads/Water Bottle Picture.jpg' },
+    { id: 5, name: 'Charging Cable',  timeAgo: '1 Hour Ago',   location: 'Cafeteria',            image: '/uploads/Charging Cable Picture.jpg' },
+    { id: 4, name: 'Airpods',         timeAgo: '32 Mins Ago',  location: 'Ground Floor Bathroom', image: '/uploads/Aipods.jpg' },
+  ];
+
+  container.innerHTML = '';
+
+  RECENT.forEach((item, index) => {
+    const card = document.createElement('div');
+    card.className = 'item-card';
+    card.style.animationDelay = `${index * 60}ms`;
+    card.innerHTML = `
+      <div class="item-img-thumb">
+        <img src="${item.image}" alt="${item.name}">
+      </div>
+      <div class="item-info">
+        <span class="item-name">${item.name}</span>
+        <span class="item-meta">${item.timeAgo}</span>
+        <span class="item-meta">📍 ${item.location}</span>
+      </div>
+    `;
+    card.addEventListener('click', () => {
+      window.location.href = `details.html?id=${item.id}`;
+    });
+    container.appendChild(card);
+  });
+}
+
+
+/* ============================================================
+   SECTION 7: GALLERY PAGE — Grid + Filter Chips
+   Contribution: [Your Name]
+   Loads all items into the 2-column grid, filtered by the
+   selected category chip. Chip click triggers a reload.
+   ============================================================ */
+
+async function loadGallery(filter = 'All') {
+  const grid = document.getElementById('gallery-grid');
+  if (!grid) return;
+
+  let items = await getItems();
+
+  grid.innerHTML = '';
+
+  if (filter !== 'All') {
+    items = items.filter(item => {
+      const cat    = (item.category ?? '').toLowerCase();
+      const target = filter.toLowerCase();
+      return cat === target || cat.includes(target) || target.includes(cat);
+    });
+  }
+
+  if (!items.length) {
+    grid.innerHTML = `
+      <div class="empty-state" style="grid-column:1/-1">
+        <span class="empty-state-icon">🔍</span>
+        <p>No items found for <strong>"${filter}"</strong>.</p>
+      </div>`;
+    return;
+  }
+
+  [...items].reverse().forEach((item, index) => {
+    const badgeClass = item.status === 'lost' ? 'badge-lost' :
+                       item.status === 'found' ? 'badge-found' : 'badge-resolved';
+
+    const card = document.createElement('div');
+    card.className = 'grid-item';
+    card.style.animationDelay = `${index * 40}ms`;
+    card.innerHTML = `
+      <div class="img-box">
+        ${item.image
+          ? `<img src="${item.image}" alt="${item.itemName}">`
+          : '📦'}
+      </div>
+      <div class="grid-item-details">
+        <span class="grid-item-name">${item.itemName}</span>
+        <span class="grid-item-loc">📍 ${item.location}</span>
+        <span class="grid-item-badge item-badge ${badgeClass}">
+          ${item.status}
+        </span>
+      </div>
+    `;
+    card.addEventListener('click', () => {
+      window.location.href = `details.html?id=${item.id}`;
+    });
+    grid.appendChild(card);
+  });
+}
+
+/**
+ * Wires up the filter chip buttons on the gallery page.
+ */
+function setupFilters() {
+  const chips = document.querySelectorAll('.chip');
+  if (!chips.length) return;
+
+  chips.forEach(chip => {
+    chip.addEventListener('click', () => {
+      chips.forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      const category = chip.getAttribute('data-category') ?? 'All';
+      loadGallery(category);
+    });
+  });
+}
+
+
+/* ============================================================
+   SECTION 8: DETAILS PAGE — Load Item Info
+   Contribution: [Your Name]
+   Reads the ?id= param from the URL, finds the matching item,
+   populates all detail elements including contact info and map.
+   ============================================================ */
+
+async function loadItemDetails() {
+  const nameEl = document.getElementById('detail-name');
+  if (!nameEl) return;
+
+  const urlParams = new URLSearchParams(window.location.search);
+  const itemId    = urlParams.get('id');
+  if (!itemId) {
+    nameEl.textContent = 'Item not found.';
+    return;
+  }
+
+  const items = await getItems();
+  const item  = items.find(i => String(i.id) === String(itemId));
+
+  if (!item) {
+    nameEl.textContent = 'Item not found.';
+    return;
+  }
+
+  // Populate text fields
+  document.getElementById('detail-name').textContent        = item.itemName    ?? '—';
+  document.getElementById('detail-location').textContent    = item.location    ?? '—';
+  document.getElementById('detail-category').textContent    = item.category    ?? '—';
+  document.getElementById('detail-time').textContent        = item.timestamp   ?? '—';
+  document.getElementById('detail-description').textContent = item.description ?? '—';
+
+  // Populate hero image
+  const heroBox = document.getElementById('detail-img-hero');
+  if (heroBox && item.image) {
+    heroBox.innerHTML = `<img src="${item.image}" alt="${item.itemName}">`;
+  }
+
+  // Activate the correct status pill (no emojis — labels are plain text)
+  const pillMap = { lost: 'status-lost', found: 'status-found', resolved: 'status-resolved' };
+  const activePillId = pillMap[item.status];
+  if (activePillId) {
+    document.getElementById(activePillId)?.classList.add('active-status');
+  }
+
+  // Populate map section
+  const mapLabel   = document.getElementById('map-location-label');
+  const mapCaption = document.getElementById('map-caption-text');
+  if (mapLabel)   mapLabel.textContent   = item.location ?? '—';
+  if (mapCaption) mapCaption.textContent = item.location ?? '—';
+
+  // Populate contact info card
+  const contactList = document.getElementById('contact-meta-list');
+  if (contactList) {
+    if (item.status === 'resolved') {
+      // Returned item — show both "Found By" and "Returned To"
+      contactList.innerHTML = `
+        <div class="detail-meta-row">
+          <span class="detail-meta-icon">👤</span>
+          <div>
+            <div class="detail-meta-label">Found By</div>
+            <div class="detail-meta-value">${item.contact ?? '—'} &nbsp;|&nbsp; ${item.phone ?? ''}</div>
+          </div>
+        </div>
+        <div class="detail-meta-row" style="margin-top:10px;">
+          <span class="detail-meta-icon">📬</span>
+          <div>
+            <div class="detail-meta-label">Returned To</div>
+            <div class="detail-meta-value">${item.returnedTo ?? '—'} &nbsp;|&nbsp; ${item.returnedToPhone ?? ''}</div>
+          </div>
+        </div>
+      `;
+    } else {
+      // Regular item — show single contact
+      contactList.innerHTML = `
+        <div class="detail-meta-row">
+          <span class="detail-meta-icon">👤</span>
+          <div>
+            <div class="detail-meta-label">Contact</div>
+            <div class="detail-meta-value">${item.contact ?? '—'} &nbsp;|&nbsp; ${item.phone ?? ''}</div>
+          </div>
+        </div>
+      `;
+    }
+  }
+
+  // Message Reporter button
+  const ctaBtn = document.getElementById('contact-btn');
+  if (ctaBtn) {
+    ctaBtn.addEventListener('click', () => {
+      showToast(`Messaging ${item.contact ?? 'reporter'} — coming soon!`);
+    });
+  }
+
+  // Update page title
+  document.title = `MapúaWhere — ${item.itemName}`;
+}
+
+
+/* ============================================================
+   SECTION 9: ENTRY POINT — window.onload
+   Contribution: [Your Name]
+   Detects which page is loaded and initialises only the
+   relevant functions, keeping performance lean.
+   ============================================================ */
+
+window.addEventListener('load', () => {
+  // Functions that run on every page
+  initSidebar();        // sidebar open/close
+  initUploadBox();
+  initLiveValidation();
+  initSubmitBtn();
+
+  // Page-specific functions
+  loadRecentActivity(); // index.html
+  setupFilters();       // gallery.html
+  loadGallery();        // gallery.html
+  loadItemDetails();    // details.html
+  // (Each function guards itself with an early return if its
+  //  key element isn't present on the current page.)
+});

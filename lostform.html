@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <title>MapúaWhere — Report Lost Item</title>
+</head>
+<body>
+
+  <div class="phone-container">
+
+    <!-- SIDEBAR -->
+     <div class="sidebar-overlay" id="sidebar-overlay" onclick="closeSidebar()"></div>
+<aside class="sidebar" id="sidebar">
+  
+  <div class="sidebar-header">
+    <div class="sidebar-logo-wrap">
+      <span class="sidebar-logo-text">MapúaWhere</span>
+    </div>
+    <p class="sidebar-tagline">Mapúa University Makati — Lost & Found</p>
+  </div>
+  
+  <nav class="sidebar-nav">
+    <p class="sidebar-section-label">Account</p>
+    <button class="sidebar-link" onclick="showToast('Sign In coming soon!'); closeSidebar()">
+      <span class="s-icon">🔐</span> Sign In / Sign Out
+    </button>
+    <button class="sidebar-link" onclick="showToast('Account settings coming soon!'); closeSidebar()">
+      <span class="s-icon">👤</span> Account
+    </button>
+    
+    <div class="sidebar-divider"></div>
+    
+    <p class="sidebar-section-label">Navigate</p>
+    <a href="index.html" class="sidebar-link"><span class="s-icon">🏠</span> Home</a>
+    <a href="gallery.html" class="sidebar-link"><span class="s-icon">🗂️</span> Gallery</a>
+    <a href="foundform.html" class="sidebar-link"><span class="s-icon">📌</span> Report Item</a>
+    
+    <div class="sidebar-divider"></div>
+    
+    <p class="sidebar-section-label">Support</p>
+    <button class="sidebar-link" onclick="showToast('Help page coming soon!'); closeSidebar()">
+      <span class="s-icon">❓</span> Need Help
+    </button>
+  </nav>
+  
+  <div class="sidebar-footer">© MapuaWhere 2026</div>
+</aside>
+
+    <!-- PERSISTENT HEADER -->
+    <header class="app-header">
+  <a href="index.html" class="header-logo">
+    <img src="MapuaWhere_Logo.png" alt="MapúaWhere" style="height: 50px; width: auto;">
+  </a>
+  <div class="header-actions">
+    <button class="icon-btn" onclick="toggleMenu()">☰</button>
+  </div>
+</header>
+
+    <!-- =============================================
+         LOST FORM PAGE CONTENT
+         Contribution: [Your Name] — Report Lost form,
+         upload box, input validation, and submit logic
+         ============================================= -->
+    <main class="page-content">
+      <div class="form-page">
+
+        <!-- Page title -->
+        <div style="margin-bottom:4px;">
+          <h2 style="font-family:var(--font-display);font-size:22px;color:var(--gray-900);">
+            Report a Lost Item
+          </h2>
+          <p style="font-size:13px;color:var(--gray-500);margin-top:4px;">
+            Post it here so someone can return it to you.
+          </p>
+        </div>
+
+        <!-- Tab Toggle — emojis removed -->
+        <div class="form-tabs">
+          <a href="foundform.html" class="form-tab">Report Found</a>
+          <span class="form-tab active">Report Lost</span>
+        </div>
+
+        <!-- Photo Upload -->
+        <div class="field-group">
+          <label class="field-label">Reference Photo <span style="font-weight:400;color:var(--gray-400)">(optional)</span></label>
+          <div class="upload-box" id="upload-box" role="button" tabindex="0"
+               aria-label="Upload reference photo">
+            <span class="upload-icon">🖼️</span>
+            <span class="upload-label">Tap to upload a reference photo</span>
+            <span class="upload-sublabel">JPG, PNG up to 10MB</span>
+          </div>
+          <input type="file" id="itemPhoto" accept="image/*" style="display:none;" aria-hidden="true">
+        </div>
+
+        <!-- Category -->
+        <div class="field-group">
+          <label class="field-label" for="category">Category</label>
+          <select class="input-field" id="category" aria-required="true">
+            <option value="" disabled selected>Select a category…</option>
+            <option value="Electronics">📱 Electronics</option>
+            <option value="Documents">📄 Documents / IDs</option>
+            <option value="Wallets/Keys/IDs">🔑 Wallets / Keys / IDs</option>
+            <option value="Clothing/Accessories">👕 Clothing &amp; Accessories</option>
+            <option value="Other">📦 Other</option>
+          </select>
+          <span class="field-error" id="error-category">Please select a category.</span>
+        </div>
+
+        <!-- Item Name -->
+        <div class="field-group">
+          <label class="field-label" for="item-name">Item Name</label>
+          <input type="text" class="input-field" id="item-name"
+                 placeholder="e.g. Blue Jansport Backpack"
+                 aria-required="true" maxlength="80">
+          <span class="field-error" id="error-item-name">Please enter an item name.</span>
+        </div>
+
+        <!-- Location -->
+        <div class="field-group">
+          <label class="field-label" for="location">Last Seen Location</label>
+          <input type="text" class="input-field" id="location"
+                 placeholder="e.g. Cafeteria, near the entrance"
+                 aria-required="true" maxlength="100">
+          <span class="field-error" id="error-location">Please enter a last-seen location.</span>
+        </div>
+
+        <!-- Description -->
+        <div class="field-group">
+          <label class="field-label" for="description">Description</label>
+          <textarea class="input-field" id="description"
+                    placeholder="Unique markings, brand, color, contents…"
+                    aria-required="true" maxlength="500"></textarea>
+          <span class="field-error" id="error-description">Please add a short description.</span>
+        </div>
+
+        <!-- Submit -->
+        <button class="submit-btn submit-btn-lost" id="submitBtn" type="button">
+          <span class="btn-text"> Post Lost Report</span>
+          <span class="btn-spinner"></span>
+        </button>
+
+      </div>
+    </main>
+
+    <!-- PERSISTENT BOTTOM NAV — Messages removed, Browse→Gallery -->
+    <nav class="bottom-nav" aria-label="Main navigation">
+      <a href="index.html" class="nav-item">
+        <span class="nav-icon">🏠</span>
+        <span>Home</span>
+      </a>
+      <a href="gallery.html" class="nav-item">
+        <span class="nav-icon">🗂️</span>
+        <span>Gallery</span>
+      </a>
+      <a href="foundform.html" class="nav-item active" aria-current="page">
+        <span class="nav-icon">➕</span>
+        <span>Report</span>
+      </a>
+    </nav>
+
+    <!-- LICENSE FOOTER — updated text -->
+    <footer class="license-footer">© MapuaWhere 2026</footer>
+
+  </div><!-- /.phone-container -->
+
+  <script src="script.js"></script>
+</body>
+</html>

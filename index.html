@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <title>MapúaWhere — Lost & Found</title>
+</head>
+<body>
+
+  <div class="phone-container">
+
+    <!-- =============================================
+         SIDEBAR OVERLAY + PANEL
+         Contribution: [Your Name] — Functional sidebar nav
+         ============================================= -->
+   <div class="sidebar-overlay" id="sidebar-overlay" onclick="closeSidebar()"></div>
+<aside class="sidebar" id="sidebar">
+  
+  <div class="sidebar-header">
+    <div class="sidebar-logo-wrap">
+      <span class="sidebar-logo-text">MapúaWhere</span>
+    </div>
+    <p class="sidebar-tagline">Mapúa University Makati — Lost & Found</p>
+  </div>
+  
+  <nav class="sidebar-nav">
+    <p class="sidebar-section-label">Account</p>
+    <button class="sidebar-link" onclick="showToast('Sign In coming soon!'); closeSidebar()">
+      <span class="s-icon">🔐</span> Sign In / Sign Out
+    </button>
+    <button class="sidebar-link" onclick="showToast('Account settings coming soon!'); closeSidebar()">
+      <span class="s-icon">👤</span> Account
+    </button>
+    
+    <div class="sidebar-divider"></div>
+    
+    <p class="sidebar-section-label">Navigate</p>
+    <a href="index.html" class="sidebar-link"><span class="s-icon">🏠</span> Home</a>
+    <a href="gallery.html" class="sidebar-link"><span class="s-icon">🗂️</span> Gallery</a>
+    <a href="foundform.html" class="sidebar-link"><span class="s-icon">📌</span> Report Item</a>
+    
+    <div class="sidebar-divider"></div>
+    
+    <p class="sidebar-section-label">Support</p>
+    <button class="sidebar-link" onclick="showToast('Help page coming soon!'); closeSidebar()">
+      <span class="s-icon">❓</span> Need Help
+    </button>
+  </nav>
+  
+  <div class="sidebar-footer">© MapuaWhere 2026</div>
+</aside>
+
+    <!-- =============================================
+         PERSISTENT HEADER (appears on every page)
+         Contribution: [Your Name] — Global layout
+         ============================================= -->
+
+      <header class="app-header">
+  <a href="index.html" class="header-logo">
+    <img src="MapuaWhere_Logo.png" alt="MapúaWhere" style="height: 50px; width: auto;">
+  </a>
+  <div class="header-actions">
+    <button class="icon-btn" onclick="toggleMenu()">☰</button>
+  </div>
+</header>
+
+    <!-- =============================================
+         MAIN CONTENT
+         Contribution: [Your Name] — Home / index page
+         ============================================= -->
+    <main class="page-content">
+
+      <!-- Search Bar -->
+      <div class="home-search-wrap">
+        <span class="search-icon">🔍</span>
+        <input type="text" class="search-bar" placeholder="Search lost &amp; found items…" id="searchInput">
+      </div>
+
+      <!-- Action Buttons — solid colors, no emojis -->
+      <div class="actions">
+        <a href="lostform.html" class="action-btn action-btn-lost">
+          <span class="action-btn-label">I Lost</span>
+          <span class="action-btn-title">Report<br>Lost Item</span>
+        </a>
+        <a href="foundform.html" class="action-btn action-btn-found">
+          <span class="action-btn-label">I Found</span>
+          <span class="action-btn-title">Report<br>Found Item</span>
+        </a>
+      </div>
+
+      <!-- Recent Activity -->
+      <div class="section-header">
+        <h2 class="section-title">Recent Activity</h2>
+        <a href="gallery.html" class="section-link">See all →</a>
+      </div>
+
+      <div class="activity-list" id="activity-list">
+        <!-- Populated by script.js → loadRecentActivity() -->
+        <!-- Skeleton placeholders shown while loading -->
+        <div class="item-card">
+          <div class="item-img-thumb skeleton" style="width:58px;height:58px;border-radius:8px;flex-shrink:0;"></div>
+          <div class="item-info" style="gap:6px;display:flex;flex-direction:column;">
+            <div class="skeleton" style="height:14px;width:130px;border-radius:6px;"></div>
+            <div class="skeleton" style="height:11px;width:90px;border-radius:6px;"></div>
+          </div>
+        </div>
+        <div class="item-card">
+          <div class="item-img-thumb skeleton" style="width:58px;height:58px;border-radius:8px;flex-shrink:0;"></div>
+          <div class="item-info" style="gap:6px;display:flex;flex-direction:column;">
+            <div class="skeleton" style="height:14px;width:110px;border-radius:6px;"></div>
+            <div class="skeleton" style="height:11px;width:70px;border-radius:6px;"></div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+
+    <!-- =============================================
+         PERSISTENT BOTTOM NAV — Messages removed
+         Contribution: [Your Name] — Global layout
+         ============================================= -->
+    <nav class="bottom-nav" aria-label="Main navigation">
+      <a href="index.html" class="nav-item active" aria-current="page">
+        <span class="nav-icon">🏠</span>
+        <span>Home</span>
+      </a>
+      <a href="gallery.html" class="nav-item">
+        <span class="nav-icon">🗂️</span>
+        <span>Gallery</span>
+      </a>
+      <a href="foundform.html" class="nav-item">
+        <span class="nav-icon">➕</span>
+        <span>Report</span>
+      </a>
+    </nav>
+
+    <!-- LICENSE FOOTER — updated text -->
+    <footer class="license-footer">© MapuaWhere 2026</footer>
+
+  </div><!-- /.phone-container -->
+
+  <script src="script.js"></script>
+</body>
+</html>
