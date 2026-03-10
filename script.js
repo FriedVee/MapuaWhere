@@ -475,90 +475,93 @@ function setupFilters() {
 
 /* ============================================================
    SECTION 8: DETAILS PAGE — Load Item Info
-   Contribution: [Your Name]
+   
+   Contribution: [HONEY]]
    Reads the ?id= param from the URL, finds the matching item,
    populates all detail elements including contact info and map.
+
+   Contribution: [IVORY]
+   Integrated Table and List population
+   ============================================================ */
+
+/* ============================================================
+   SECTION 8: DETAILS PAGE — Load Item Info
+   Contribution: Integrated Table and List population
    ============================================================ */
 
 async function loadItemDetails() {
+  // Guard clause: Only run if we are actually on the details page
   const nameEl = document.getElementById('detail-name');
-  if (!nameEl) return;
+  if (!nameEl) return; 
 
   const urlParams = new URLSearchParams(window.location.search);
-  const itemId    = urlParams.get('id');
+  const itemId = urlParams.get('id');
+  
   if (!itemId) {
-    nameEl.textContent = 'Item not found.';
+    nameEl.textContent = 'No item selected.';
     return;
   }
 
-  const items = await getItems();
-  const item  = items.find(i => String(i.id) === String(itemId));
+  // Fetch data (Falls back to PROTOTYPE_ITEMS if API is offline)
+  const items = await getItems(); 
+  const item = items.find(i => String(i.id) === String(itemId));
 
   if (!item) {
     nameEl.textContent = 'Item not found.';
     return;
   }
 
-  // Populate text fields
-  document.getElementById('detail-name').textContent        = item.itemName    ?? '—';
-  document.getElementById('detail-location').textContent    = item.location    ?? '—';
-  document.getElementById('detail-category').textContent    = item.category    ?? '—';
-  document.getElementById('detail-time').textContent        = item.timestamp   ?? '—';
-  document.getElementById('detail-description').textContent = item.description ?? '—';
+  // 1. POPULATE DESCRIPTION TABLE
+  // We use optional chaining (?.) to prevent the script from breaking if an ID is missing
+  if (document.getElementById('detail-name')) nameEl.textContent = item.itemName;
+  if (document.getElementById('detail-location')) document.getElementById('detail-location').textContent = item.location;
+  if (document.getElementById('detail-category')) document.getElementById('detail-category').textContent = item.category;
+  if (document.getElementById('detail-time')) document.getElementById('detail-time').textContent = item.displayTime || item.timestamp;
+  if (document.getElementById('detail-description')) document.getElementById('detail-description').textContent = item.description;
 
-  // Populate hero image
+  // 2. HERO IMAGE POPULATION
   const heroBox = document.getElementById('detail-img-hero');
   if (heroBox && item.image) {
-    heroBox.innerHTML = `<img src="${item.image}" alt="${item.itemName}">`;
+    heroBox.innerHTML = `<img src="${item.image}" alt="${item.itemName}" style="width:100%; height:100%; object-fit:cover; border-radius:var(--radius-lg);">`;
   }
 
-  // Activate the correct status pill (no emojis — labels are plain text)
-  const pillMap = { lost: 'status-lost', found: 'status-found', resolved: 'status-resolved' };
-  const activePillId = pillMap[item.status];
-  if (activePillId) {
-    document.getElementById(activePillId)?.classList.add('active-status');
+  // 3. POPULATE ACTIVITY HISTORY LIST
+  const historyList = document.getElementById('activity-history-list');
+  if (historyList) {
+    const statusAction = item.status === 'resolved' ? '✅ Item Returned' : `📌 Reported as ${item.status.toUpperCase()}`;
+    historyList.innerHTML = `
+      <li style="padding: 12px 0; border-bottom: 1px solid var(--gray-50); display: flex; align-items: center; gap: 12px;">
+        <span style="font-size: 20px;">📍</span>
+        <div>
+          <div style="font-size: 14px; font-weight: 700; color: var(--gray-900);">${statusAction}</div>
+          <div style="font-size: 12px; color: var(--gray-500);">${item.displayTime || 'Just now'}</div>
+        </div>
+      </li>
+    `;
   }
 
-  // Populate map section
-  const mapLabel   = document.getElementById('map-location-label');
-  const mapCaption = document.getElementById('map-caption-text');
-  if (mapLabel)   mapLabel.textContent   = item.location ?? '—';
-  if (mapCaption) mapCaption.textContent = item.location ?? '—';
-
-  // Populate contact info card
+  // 4. RESTORED: CONTACT INFO POPULATION
   const contactList = document.getElementById('contact-meta-list');
   if (contactList) {
-    if (item.status === 'resolved') {
-      // Returned item — show both "Found By" and "Returned To"
-      contactList.innerHTML = `
-        <div class="detail-meta-row">
-          <span class="detail-meta-icon">👤</span>
-          <div>
-            <div class="detail-meta-label">Found By</div>
-            <div class="detail-meta-value">${item.contact ?? '—'} &nbsp;|&nbsp; ${item.phone ?? ''}</div>
-          </div>
+    contactList.innerHTML = `
+      <div class="detail-meta-row" style="display:flex; gap:10px;">
+        <span style="font-size:20px;">👤</span>
+        <div>
+          <div style="font-size:11px; font-weight:700; color:var(--gray-400); text-transform:uppercase;">Contact Person</div>
+          <div style="color:var(--gray-800); font-weight:500;">${item.contact} | ${item.phone}</div>
         </div>
-        <div class="detail-meta-row" style="margin-top:10px;">
-          <span class="detail-meta-icon">📬</span>
-          <div>
-            <div class="detail-meta-label">Returned To</div>
-            <div class="detail-meta-value">${item.returnedTo ?? '—'} &nbsp;|&nbsp; ${item.returnedToPhone ?? ''}</div>
-          </div>
-        </div>
-      `;
-    } else {
-      // Regular item — show single contact
-      contactList.innerHTML = `
-        <div class="detail-meta-row">
-          <span class="detail-meta-icon">👤</span>
-          <div>
-            <div class="detail-meta-label">Contact</div>
-            <div class="detail-meta-value">${item.contact ?? '—'} &nbsp;|&nbsp; ${item.phone ?? ''}</div>
-          </div>
-        </div>
-      `;
-    }
+      </div>`;
   }
+
+  // 5. UPDATE UI STATES
+  const pillMap = { lost: 'status-lost', found: 'status-found', resolved: 'status-resolved' };
+  const activePill = document.getElementById(pillMap[item.status]);
+  if (activePill) activePill.classList.add('active-status');
+
+  // Sync Map labels
+  const mapLabel = document.getElementById('map-location-label');
+  if (mapLabel) mapLabel.textContent = item.location;
+
 
   // Message Reporter button
   const ctaBtn = document.getElementById('contact-btn');

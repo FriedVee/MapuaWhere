@@ -9,145 +9,108 @@
 <body>
 
   <div class="phone-container">
+    <div class="sidebar-overlay" id="sidebar-overlay" onclick="closeSidebar()"></div>
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo-wrap">
+          <span class="sidebar-logo-text">MapúaWhere</span>
+        </div>
+        <p class="sidebar-tagline">Mapúa University Makati — Lost & Found</p>
+      </div>
+      <nav class="sidebar-nav">
+        <p class="sidebar-section-label">Navigate</p>
+        <a href="index.html" class="sidebar-link"><span class="s-icon">🏠</span> Home</a>
+        <a href="gallery.html" class="sidebar-link"><span class="s-icon">🗂️</span> Gallery</a>
+        <a href="foundform.html" class="sidebar-link"><span class="s-icon">📌</span> Report Item</a>
+      </nav>
+      <div class="sidebar-footer">© MapuaWhere 2026</div>
+    </aside>
 
-    <!-- SIDEBAR -->
- <div class="sidebar-overlay" id="sidebar-overlay" onclick="closeSidebar()"></div>
-<aside class="sidebar" id="sidebar">
-  
-  <div class="sidebar-header">
-    <div class="sidebar-logo-wrap">
-      <span class="sidebar-logo-text">MapúaWhere</span>
-    </div>
-    <p class="sidebar-tagline">Mapúa University Makati — Lost & Found</p>
-  </div>
-
-  <nav class="sidebar-nav">
-    <p class="sidebar-section-label">Account</p>
-    <button class="sidebar-link" onclick="showToast('Sign In coming soon!'); closeSidebar()">
-      <span class="s-icon">🔐</span> Sign In / Sign Out
-    </button>
-    <button class="sidebar-link" onclick="showToast('Account settings coming soon!'); closeSidebar()">
-      <span class="s-icon">👤</span> Account
-    </button>
-    
-    <div class="sidebar-divider"></div>
-    
-    <p class="sidebar-section-label">Navigate</p>
-    <a href="index.html" class="sidebar-link"><span class="s-icon">🏠</span> Home</a>
-    <a href="gallery.html" class="sidebar-link"><span class="s-icon">🗂️</span> Gallery</a>
-    <a href="foundform.html" class="sidebar-link"><span class="s-icon">📌</span> Report Item</a>
-    
-    <div class="sidebar-divider"></div>
-    
-    <p class="sidebar-section-label">Support</p>
-    <button class="sidebar-link" onclick="showToast('Help page coming soon!'); closeSidebar()">
-      <span class="s-icon">❓</span> Need Help
-    </button>
-  </nav>
-  
-  <div class="sidebar-footer">© MapuaWhere 2026</div>
-</aside>
-
-    <!-- PERSISTENT HEADER -->
     <header class="app-header">
-  <a href="index.html" class="header-logo">
-    <img src="MapuaWhere_Logo.png" alt="MapúaWhere" style="height: 50px; width: auto;">
-  </a>
-  <div class="header-actions">
-    <button class="icon-btn" onclick="toggleMenu()">☰</button>
-  </div>
-</header>
+      <a href="index.html" class="header-logo">
+        <img src="MapuaWhere_Logo.png" alt="MapúaWhere" style="height: 50px; width: auto;">
+      </a>
+      <div class="header-actions">
+        <button class="icon-btn" onclick="toggleMenu()">☰</button>
+      </div>
+    </header>
 
-    <!-- =============================================
-         DETAILS MAIN CONTENT
-         Contribution: [Your Name] — Item details page,
-         status pills, info card, contact info, map section
-         ============================================= -->
     <main class="page-content">
-
-      <!-- Back button -->
       <div class="details-header">
         <a href="javascript:history.back()" class="back-btn" aria-label="Go back">←</a>
         <h1 style="font-size:16px; font-weight:700; color:var(--gray-700);">Item Details</h1>
       </div>
 
-      <!-- Status Pills — no emojis, red for lost, green for found -->
-      <div class="status-row" id="status-row" role="group" aria-label="Item status">
-        <span class="status-pill status-pill-lost"     id="status-lost">Lost</span>
-        <span class="status-pill status-pill-found"    id="status-found">Found</span>
+      <div class="status-row" id="status-row">
+        <span class="status-pill status-pill-lost" id="status-lost">Lost</span>
+        <span class="status-pill status-pill-found" id="status-found">Found</span>
         <span class="status-pill status-pill-resolved" id="status-resolved">Resolved</span>
       </div>
 
-      <!-- Hero Image -->
       <div class="detail-img-hero" id="detail-img-hero">
         <span>📷</span>
       </div>
 
-      <!-- Info Card -->
       <div class="detail-card">
-        <h2 class="detail-item-name" id="detail-name">Loading…</h2>
+        <h2 class="detail-item-name" id="detail-name" style="font-family: var(--font-heading); margin-bottom: 5px;">Loading…</h2>
+        
+        <table class="detail-info-table" style="width: 100%; border-collapse: collapse; margin: 15px 0;">
+          <tr>
+            <td style="padding: 10px 0; color: var(--gray-400); font-size: 11px; font-weight: 700; text-transform: uppercase;">📍 Location</td>
+            <td id="detail-location" style="padding: 10px 0; text-align: right; color: var(--gray-800); font-weight: 600;">—</td>
+          </tr>
+          <tr>
+            <td style="padding: 10px 0; color: var(--gray-400); font-size: 11px; font-weight: 700; text-transform: uppercase;">🏷️ Category</td>
+            <td id="detail-category" style="padding: 10px 0; text-align: right; color: var(--gray-800); font-weight: 600;">—</td>
+          </tr>
+          <tr>
+            <td style="padding: 10px 0; color: var(--gray-400); font-size: 11px; font-weight: 700; text-transform: uppercase;">🕐 Date Reported</td>
+            <td id="detail-time" style="padding: 10px 0; text-align: right; color: var(--gray-800); font-weight: 600;">—</td>
+          </tr>
+        </table>
 
-        <div class="detail-meta-list">
-          <div class="detail-meta-row">
-            <span class="detail-meta-icon">📍</span>
-            <div>
-              <div class="detail-meta-label">Location</div>
-              <div class="detail-meta-value" id="detail-location">—</div>
-            </div>
-          </div>
-          <div class="detail-meta-row">
-            <span class="detail-meta-icon">🏷️</span>
-            <div>
-              <div class="detail-meta-label">Category</div>
-              <div class="detail-meta-value" id="detail-category">—</div>
-            </div>
-          </div>
-          <div class="detail-meta-row">
-            <span class="detail-meta-icon">🕐</span>
-            <div>
-              <div class="detail-meta-label">Date Reported</div>
-              <div class="detail-meta-value" id="detail-time">—</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="detail-description" id="detail-description">
+        <div class="detail-description" id="detail-description" style="border-top: 1px solid var(--gray-100); padding-top: 15px; color: var(--gray-700); font-size: 14px; line-height: 1.6;">
           Loading description…
         </div>
       </div>
 
-      <!-- Contact Info Card — populated by loadItemDetails() -->
-      <div class="detail-card" id="contact-card">
-        <div class="detail-meta-list" id="contact-meta-list">
-          <!-- Populated by script.js -->
-        </div>
-      </div>
-
-      <!-- Campus Map Placeholder -->
-      <div class="map-section">
-        <div class="map-section-header">
+       <div class="map-section" style="margin-top: 24px; border-radius: var(--radius-lg); overflow: hidden; background: white; border: 1px solid var(--gray-100);">
+        <div class="map-section-header" style="padding: 12px 16px; border-bottom: 1px solid var(--gray-100); display: flex; align-items: center; gap: 8px;">
           <span>🗺️</span>
-          <span class="map-section-title">Campus Premises Map</span>
+          <span class="map-section-title" style="font-family: var(--font-heading); font-weight: 700; text-transform: uppercase;">Campus Premises Map</span>
         </div>
-        <div class="map-placeholder">
-          <span class="map-placeholder-pin">📍</span>
-          <span id="map-location-label" style="font-weight:600;">—</span>
+        <div class="map-placeholder" style="background: var(--gray-100); min-height: 120px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px;">
+          <span class="map-placeholder-pin" style="font-size: 30px;">📍</span>
+          <span id="map-location-label" style="font-weight:600; color: var(--gray-800);">—</span>
         </div>
-        <p class="map-caption">
-          📍 <span id="map-caption-text">Location will be shown here</span>
-        </p>
       </div>
 
-      <!-- CTA Button -->
-      <button class="cta-btn" id="contact-btn">
-         Message Reporter
+      <div class="section-header" style="margin-top: 24px;">
+          <h2 class="section-title">Item History</h2>
+      </div>
+      <div class="detail-card">
+          <ul id="activity-history-list" style="list-style: none; padding: 0; margin: 0;">
+              <li style="color: var(--gray-400); font-size: 14px;">Loading activity...</li>
+          </ul>
+      </div>
+
+      <div class="section-header" style="margin-top: 24px;">
+          <h2 class="section-title">Reporter Info</h2>
+      </div>
+      <div class="detail-card" id="contact-card">
+        <div id="contact-meta-list" style="font-size: 14px; color: var(--gray-800);">
+          Loading contact details...
+        </div>
+      </div>
+
+      <button class="cta-btn" id="contact-btn" style="margin-top: 20px; background: var(--red-500); color: white; width: 100%; padding: 16px; border-radius: 12px; border: none; font-weight: 700; cursor: pointer;">
+          Message Reporter
       </button>
 
-    </main>
 
-    <!-- PERSISTENT BOTTOM NAV — Messages removed, Browse→Gallery -->
-    <nav class="bottom-nav" aria-label="Main navigation">
-      <a href="index.html" class="nav-item">
+    </main>
+<nav class="bottom-nav" aria-label="Main navigation">
+      <a href="index.html" class="nav-item active" aria-current="page">
         <span class="nav-icon">🏠</span>
         <span>Home</span>
       </a>
@@ -160,11 +123,11 @@
         <span>Report</span>
       </a>
     </nav>
+    <footer class="license-footer" style="padding: 12px 16px; text-align: center; font-size: 10px; color: var(--gray-400); background: var(--white); border-top: 1px solid var(--gray-100);">
+      © MapuaWhere 2026
+    </footer>
 
-    <!-- LICENSE FOOTER — updated text -->
-    <footer class="license-footer">© MapuaWhere 2026</footer>
-
-  </div><!-- /.phone-container -->
+  </div>
 
   <script src="script.js"></script>
 </body>
