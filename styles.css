@@ -187,9 +187,9 @@ body {
 .icon-btn:active { transform: scale(.92); background: var(--gray-200); }
 
 /* ============================================================
-   5. [USER] & HONEY: SIDEBAR NAVIGATION
+   5. IVY & HONEY: SIDEBAR NAVIGATION
    Contribution: Honey created the slide-in mechanism and 
-   overlay. [User] provided the final polish, integrated the 
+   overlay. IVY provided the final polish, integrated the 
    Account section, and refined the tagline/footer.
    ============================================================ */
 .sidebar-overlay {
