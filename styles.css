@@ -655,7 +655,7 @@ body {
 .form-tab.active { background: var(--white); color: var(--gray-900); box-shadow: var(--shadow-sm); }
 
 .upload-box {
-  background-color: #000;
+  background-color: #313131;
   border: 2px dashed var(--gray-200); border-radius: var(--radius-lg); min-height: 140px;
   display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
   cursor: pointer; 
@@ -778,3 +778,4 @@ select.input-field {
     border-radius: 10px;
     border: 2px solid #f0f0f5;
 }
+
