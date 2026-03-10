@@ -59,7 +59,7 @@ const PROTOTYPE_ITEMS = [
     status: 'lost',
     contact: 'Honey Lee',
     phone: '0123456798',
-    image: 'uploads/Aipods.jpg',
+    image: 'uploads/Airpods.jpg',
     timestamp: '3/9/2026, 2:30pm',
     displayTime: '32 Mins Ago',   // shown in Recent Activity
   },
@@ -72,7 +72,7 @@ const PROTOTYPE_ITEMS = [
     status: 'lost',
     contact: 'Ivy Em',
     phone: '0123456789',
-    image: 'uploads/Charging Cable Picture.jpg',
+    image: 'uploads/Charging_Cable_Picture.jpg',
     timestamp: '3/9/2026, 2:30pm',
     displayTime: '1 Hour Ago',    // shown in Recent Activity
   },
@@ -85,7 +85,7 @@ const PROTOTYPE_ITEMS = [
     status: 'lost',
     contact: 'Carlos Reyes',
     phone: '0195812345',
-    image: 'uploads/Water Bottle Picture.jpg',
+    image: 'uploads/Water_Bottle_Picture.jpg',
     timestamp: '3/9/2026, 2:30pm',
     displayTime: '2 Mins Ago',    // shown in Recent Activity
   },
@@ -286,9 +286,9 @@ async function loadRecentActivity() {
   if (!container) return;
 
   const RECENT = [
-    { id: 6, name: 'Water Bottle',    timeAgo: '2 Mins Ago',   location: 'Library',               image: 'uploads/Water Bottle Picture.jpg' },
-    { id: 5, name: 'Charging Cable',  timeAgo: '1 Hour Ago',   location: 'Cafeteria',            image: 'uploads/Charging Cable Picture.jpg' },
-    { id: 4, name: 'Airpods',         timeAgo: '32 Mins Ago',  location: 'Ground Floor Bathroom', image: 'uploads/Aipods.jpg' },
+    { id: 6, name: 'Water Bottle',    timeAgo: '2 Mins Ago',   location: 'Library',               image: 'uploads/Water_Bottle_Picture.jpg' },
+    { id: 5, name: 'Charging Cable',  timeAgo: '1 Hour Ago',   location: 'Cafeteria',            image: 'uploads/Charging_Cable_Picture.jpg' },
+    { id: 4, name: 'Airpods',         timeAgo: '32 Mins Ago',  location: 'Ground Floor Bathroom', image: 'uploads/Airpods.jpg' },
   ];
 
   container.innerHTML = '';
