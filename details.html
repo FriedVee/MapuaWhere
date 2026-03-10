@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+\<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -8,108 +8,93 @@
 </head>
 <body>
 
-  <div class="phone-container">
-    <div class="sidebar-overlay" id="sidebar-overlay" onclick="closeSidebar()"></div>
-    <aside class="sidebar" id="sidebar">
-      <div class="sidebar-header">
-        <div class="sidebar-logo-wrap">
-          <span class="sidebar-logo-text">MapúaWhere</span>
-        </div>
-        <p class="sidebar-tagline">Mapúa University Makati — Lost & Found</p>
-      </div>
-      <nav class="sidebar-nav">
-        <p class="sidebar-section-label">Navigate</p>
-        <a href="index.html" class="sidebar-link"><span class="s-icon">🏠</span> Home</a>
-        <a href="gallery.html" class="sidebar-link"><span class="s-icon">🗂️</span> Gallery</a>
-        <a href="foundform.html" class="sidebar-link"><span class="s-icon">📌</span> Report Item</a>
-      </nav>
-      <div class="sidebar-footer">© MapuaWhere 2026</div>
-    </aside>
-
+  <main class="phone-container">
     <header class="app-header">
       <a href="index.html" class="header-logo">
-        <img src="MapuaWhere_Logo.png" alt="MapúaWhere" style="height: 50px; width: auto;">
+        <img src="MapuaWhere_Logo.png" alt="MapúaWhere" style="height: 50px;">
       </a>
-      <div class="header-actions">
-        <button class="icon-btn" onclick="toggleMenu()">☰</button>
-      </div>
+      <button class="icon-btn" onclick="toggleMenu()">☰</button>
     </header>
 
-    <main class="page-content">
-      <div class="details-header">
-        <a href="javascript:history.back()" class="back-btn" aria-label="Go back">←</a>
-        <h1 style="font-size:16px; font-weight:700; color:var(--gray-700);">Item Details</h1>
-      </div>
+    <article class="page-content">
+      <section class="details-header">
+        <a href="javascript:history.back()" class="back-btn">←</a>
+        <h1>Item Details</h1>
+      </section>
 
       <div class="status-row" id="status-row">
         <span class="status-pill status-pill-lost" id="status-lost">Lost</span>
         <span class="status-pill status-pill-found" id="status-found">Found</span>
-        <span class="status-pill status-pill-resolved" id="status-resolved">Resolved</span>
       </div>
 
-      <div class="detail-img-hero" id="detail-img-hero">
-        <span>📷</span>
-      </div>
+      <div class="detail-img-hero" id="detail-img-hero"><span>📷</span></div>
 
-      <div class="detail-card">
-        <h2 class="detail-item-name" id="detail-name" style="font-family: var(--font-heading); margin-bottom: 5px;">Loading…</h2>
-        
-        <table class="detail-info-table" style="width: 100%; border-collapse: collapse; margin: 15px 0;">
+      <section class="detail-card">
+  <h2 class="detail-item-name" id="detail-name">Loading...</h2>
+  
+      <table class="detail-info-table">
+        <tbody>
           <tr>
-            <td style="padding: 10px 0; color: var(--gray-400); font-size: 11px; font-weight: 700; text-transform: uppercase;">📍 Location</td>
-            <td id="detail-location" style="padding: 10px 0; text-align: right; color: var(--gray-800); font-weight: 600;">—</td>
+            <th scope="row">📍 Location</th>
+            <td id="detail-location">---</td>
           </tr>
           <tr>
-            <td style="padding: 10px 0; color: var(--gray-400); font-size: 11px; font-weight: 700; text-transform: uppercase;">🏷️ Category</td>
-            <td id="detail-category" style="padding: 10px 0; text-align: right; color: var(--gray-800); font-weight: 600;">—</td>
+            <th scope="row">🏷️ Category</th>
+            <td id="detail-category">---</td>
           </tr>
           <tr>
-            <td style="padding: 10px 0; color: var(--gray-400); font-size: 11px; font-weight: 700; text-transform: uppercase;">🕐 Date Reported</td>
-            <td id="detail-time" style="padding: 10px 0; text-align: right; color: var(--gray-800); font-weight: 600;">—</td>
+            <th scope="row">🕐 Reported</th>
+            <td id="detail-time">---</td>
           </tr>
-        </table>
+        </tbody>
+      </table>
 
-        <div class="detail-description" id="detail-description" style="border-top: 1px solid var(--gray-100); padding-top: 15px; color: var(--gray-700); font-size: 14px; line-height: 1.6;">
-          Loading description…
-        </div>
+      <div class="detail-description" id="detail-description">
+        Loading description...
       </div>
+    </section>
+ 
 
-       <div class="map-section" style="margin-top: 24px; border-radius: var(--radius-lg); overflow: hidden; background: white; border: 1px solid var(--gray-100);">
-        <div class="map-section-header" style="padding: 12px 16px; border-bottom: 1px solid var(--gray-100); display: flex; align-items: center; gap: 8px;">
-          <span>🗺️</span>
-          <span class="map-section-title" style="font-family: var(--font-heading); font-weight: 700; text-transform: uppercase;">Campus Premises Map</span>
-        </div>
-        <div class="map-placeholder" style="background: var(--gray-100); min-height: 120px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px;">
-          <span class="map-placeholder-pin" style="font-size: 30px;">📍</span>
-          <span id="map-location-label" style="font-weight:600; color: var(--gray-800);">—</span>
-        </div>
-      </div>
+ <section class="map-section">
+    <div class="map-section-header">
+        <span>🗺️</span>
+        <span class="map-section-title">CAMPUS PREMISES MAP</span>
+    </div>
 
-      <div class="section-header" style="margin-top: 24px;">
+   <div class="map-container" id="map-viewport">
+    <img src="mapua-map.png" id="mapua-image" usemap="#image-map" alt="Mapúa Makati Map" class="map-image" style="width: 1200px !important; max-width: none !important;">
+
+    <map name="image-map">
+        <area target="_blank" alt="LIBRARY (2ND FLOOR)" title="LIBRARY" href="https://maps.app.goo.gl/CTmWhagmGktXTQKJ8" coords="544,684,876,897" onclick="syncMapLocation('LIBRARY (2ND FLOOR)', event);" shape="rect">
+        <area target="_blank" alt="BACK ENTRANCE" title="BACK ENTRANCE" href="https://maps.app.goo.gl/cNARNxqNQ27auLBLA" coords="1223,326,1160,267" onclick="syncMapLocation('BACK ENTRANCE', event);" shape="rect">
+        <area target="_blank" alt="CR (2ND FLOOR)" title="CR (2ND FLOOR)" href="https://maps.app.goo.gl/CTmWhagmGktXTQKJ8" coords="1974,949,1842,625" onclick="syncMapLocation('CR (2ND FLOOR)', event);" shape="rect">
+        <area target="_blank" alt="CR" title="CR" href="https://maps.app.goo.gl/CTmWhagmGktXTQKJ8" coords="1160,725,1051,593" onclick="syncMapLocation('CR', event);" shape="rect">
+        <area target="_blank" alt="CAFETERIA" title="CAFETERIA" href="https://maps.app.goo.gl/yjRR1QVnZGzvPvnu5" coords="656,209,937,257,891,543,805,547,801,679,640,679,535,686,289,633,300,625,347,454,610,495" shape="poly" onclick="syncMapLocation('CAFETERIA', event);">
+    </map>
+</div>
+
+    <p class="map-caption">
+        <span class="pin-icon">📍</span> 
+        <span id="map-caption-text">Tap a room to center map & open link</span>
+    </p>
+</section>
+
+      <section class="section-header">
           <h2 class="section-title">Item History</h2>
-      </div>
-      <div class="detail-card">
-          <ul id="activity-history-list" style="list-style: none; padding: 0; margin: 0;">
-              <li style="color: var(--gray-400); font-size: 14px;">Loading activity...</li>
+      </section>
+      <section class="detail-card">
+          <ul id="activity-history-list" class="activity-list-ul">
+              <li>Loading history...</li>
           </ul>
+      </section>
+
+      
+      <div class="action-footer">
+        <button class="cta-btn" id="contact-btn">Message Reporter</button>
       </div>
+    </article>
 
-      <div class="section-header" style="margin-top: 24px;">
-          <h2 class="section-title">Reporter Info</h2>
-      </div>
-      <div class="detail-card" id="contact-card">
-        <div id="contact-meta-list" style="font-size: 14px; color: var(--gray-800);">
-          Loading contact details...
-        </div>
-      </div>
-
-      <button class="cta-btn" id="contact-btn" style="margin-top: 20px; background: var(--red-500); color: white; width: 100%; padding: 16px; border-radius: 12px; border: none; font-weight: 700; cursor: pointer;">
-          Message Reporter
-      </button>
-
-
-    </main>
-<nav class="bottom-nav" aria-label="Main navigation">
+    <nav class="bottom-nav" aria-label="Main navigation">
       <a href="index.html" class="nav-item active" aria-current="page">
         <span class="nav-icon">🏠</span>
         <span>Home</span>
@@ -123,11 +108,13 @@
         <span>Report</span>
       </a>
     </nav>
-    <footer class="license-footer" style="padding: 12px 16px; text-align: center; font-size: 10px; color: var(--gray-400); background: var(--white); border-top: 1px solid var(--gray-100);">
-      © MapuaWhere 2026
-    </footer>
 
-  </div>
+    <footer class="license-footer">© MapuaWhere 2026</footer>
+
+    
+  </main>
+
+  
 
   <script src="script.js"></script>
 </body>
