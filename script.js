@@ -446,6 +446,7 @@ async function loadItemDetails() {
  */
 function syncMapLocation(roomName, event) {
     const container = document.getElementById('map-viewport');
+    // Ensure we are targeting the actual click on the image
     if (container && event) {
         container.scrollTo({
             left: event.offsetX - (container.offsetWidth / 2),
@@ -460,6 +461,7 @@ function syncMapLocation(roomName, event) {
 
 /**
  * PROFICIENT: Responsive Map Coordinate Resizer
+ * Synchronizes pixel coordinates with current element dimensions
  */
 function fixMapCoordinates() {
     const img = document.getElementById('mapua-image');
@@ -482,6 +484,7 @@ function fixMapCoordinates() {
 window.addEventListener('load', () => {
   initSidebar();
   
+  // Guard: Only run if elements exist on current page
   if (document.getElementById('upload-box')) {
       initUploadBox();
       initSubmitBtn();
@@ -489,10 +492,12 @@ window.addEventListener('load', () => {
   }
 
   if (document.getElementById('activity-list')) loadRecentActivity();
+  
   if (document.getElementById('gallery-grid')) {
       setupFilters();
       loadGallery();
   }
+  
   if (document.getElementById('detail-name')) loadItemDetails();
 
   // Map Initialization Guard
@@ -503,4 +508,5 @@ window.addEventListener('load', () => {
   }
 });
 
+// Re-calculate coordinates if the window is resized (orientation change)
 window.addEventListener('resize', fixMapCoordinates);
