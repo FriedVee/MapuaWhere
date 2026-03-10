@@ -118,12 +118,12 @@ function showToast(message, type = 'info', duration = 3000) {
   toast.className = `toast ${type === 'success' ? 'toast-success' : type === 'error' ? 'toast-error' : ''}`;
   toast.textContent = message;
 
-  const container = document.querySelector('.phone-container') ?? document.body;
+  // Prioritize the phone-container but fallback to body
+  const container = document.querySelector('.phone-container') || document.body;
   container.appendChild(toast);
 
-  requestAnimationFrame(() => {
-    requestAnimationFrame(() => toast.classList.add('show'));
-  });
+  // Trigger animation
+  setTimeout(() => toast.classList.add('show'), 10);
 
   setTimeout(() => {
     toast.classList.remove('show');
@@ -277,7 +277,6 @@ async function loadRecentActivity() {
   const container = document.getElementById('activity-list');
   if (!container) return;
 
-  // Use relative paths for deployment
   const RECENT = [
     { id: 6, name: 'Water Bottle',    timeAgo: '2 Mins Ago',   location: 'Library',               image: 'uploads/Water_Bottle_Picture.jpg' },
     { id: 5, name: 'Charging Cable',  timeAgo: '1 Hour Ago',   location: 'Cafeteria',            image: 'uploads/Charging_Cable_Picture.jpg' },
@@ -376,26 +375,18 @@ async function loadItemDetails() {
 
   const urlParams = new URLSearchParams(window.location.search);
   const itemId = urlParams.get('id');
-  if (!itemId) {
-    nameEl.textContent = 'No item selected.';
-    return;
-  }
-
+  
   const items = await getItems(); 
   const item = items.find(i => String(i.id) === String(itemId)) || PROTOTYPE_ITEMS[0];
 
-  if (!item) {
-    nameEl.textContent = 'Item not found.';
-    return;
-  }
-
-  // 1. POPULATE DESCRIPTION TABLE
-  if (document.getElementById('detail-name')) nameEl.textContent = item.itemName;
+  // 1. POPULATE MAIN INFO
+  nameEl.textContent = item.itemName;
   if (document.getElementById('detail-location')) document.getElementById('detail-location').textContent = item.location;
   if (document.getElementById('detail-category')) document.getElementById('detail-category').textContent = item.category;
   if (document.getElementById('detail-time')) document.getElementById('detail-time').textContent = item.displayTime || item.timestamp;
   if (document.getElementById('detail-description')) document.getElementById('detail-description').textContent = item.description;
 
+  // 2. HERO IMAGE
   if (item.image) {
     const hero = document.getElementById('detail-img-hero');
     if (hero) hero.innerHTML = `<img src="${item.image}" alt="${item.itemName}" style="width:100%; height:100%; object-fit:cover; border-radius:var(--radius-lg);" onerror="this.src='MapuaWhere_Logo.png'">`;
@@ -405,8 +396,10 @@ async function loadItemDetails() {
   const historyList = document.getElementById('activity-history-list');
   if (historyList) {
     const statusAction = item.status === 'resolved' ? '✅ Item Returned' : `📌 Reported as ${item.status.toUpperCase()}`;
+    
+    // This replaces the "Loading history..." text
     historyList.innerHTML = `
-      <li>
+      <li style="display: flex; align-items: center; gap: 12px; padding: 12px 0;">
         <span style="font-size: 20px;">📍</span>
         <div class="history-content">
           <div style="font-size: 14px; font-weight: 700; color: var(--gray-900);">${statusAction}</div>
@@ -416,7 +409,7 @@ async function loadItemDetails() {
     `;
   }
 
-  // 4. CONTACT INFO POPULATION
+  // 3. REPORTER SECTION (RESTORED)
   const contactList = document.getElementById('contact-meta-list');
   if (contactList) {
     contactList.innerHTML = `
@@ -429,8 +422,17 @@ async function loadItemDetails() {
       </div>`;
   }
 
-  // 5. UPDATE UI STATES (Status Pills)
+  // 4. BUTTON NOTIFICATION (RESTORED)
+  const ctaBtn = document.getElementById('contact-btn');
+  if (ctaBtn) {
+    ctaBtn.addEventListener('click', () => {
+      showToast(`Messaging ${item.contact || 'reporter'} — coming soon!`, 'info');
+    });
+  }
+
+  // 5. STATUS PILLS
   const pillMap = { lost: 'status-lost', found: 'status-found', resolved: 'status-resolved' };
+  document.querySelectorAll('.status-pill').forEach(p => p.classList.remove('active-status'));
   document.getElementById(pillMap[item.status])?.classList.add('active-status');
 
   // Sync Map labels
@@ -442,11 +444,9 @@ async function loadItemDetails() {
 
 /**
  * PROFICIENT: Dynamic Centering Logic
- * Moves the map viewport based on the tapped coordinate
  */
 function syncMapLocation(roomName, event) {
     const container = document.getElementById('map-viewport');
-    // Ensure we are targeting the actual click on the image
     if (container && event) {
         container.scrollTo({
             left: event.offsetX - (container.offsetWidth / 2),
@@ -461,7 +461,6 @@ function syncMapLocation(roomName, event) {
 
 /**
  * PROFICIENT: Responsive Map Coordinate Resizer
- * Synchronizes pixel coordinates with current element dimensions
  */
 function fixMapCoordinates() {
     const img = document.getElementById('mapua-image');
@@ -484,7 +483,6 @@ function fixMapCoordinates() {
 window.addEventListener('load', () => {
   initSidebar();
   
-  // Guard: Only run if elements exist on current page
   if (document.getElementById('upload-box')) {
       initUploadBox();
       initSubmitBtn();
@@ -492,15 +490,12 @@ window.addEventListener('load', () => {
   }
 
   if (document.getElementById('activity-list')) loadRecentActivity();
-  
   if (document.getElementById('gallery-grid')) {
       setupFilters();
       loadGallery();
   }
-  
   if (document.getElementById('detail-name')) loadItemDetails();
 
-  // Map Initialization Guard
   const mapImg = document.getElementById('mapua-image');
   if (mapImg) {
     if (mapImg.complete) fixMapCoordinates();
@@ -508,5 +503,4 @@ window.addEventListener('load', () => {
   }
 });
 
-// Re-calculate coordinates if the window is resized (orientation change)
 window.addEventListener('resize', fixMapCoordinates);
