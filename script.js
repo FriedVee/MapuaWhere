@@ -9,10 +9,14 @@
  */
 
 /* ============================================================
+<<<<<<< Updated upstream
    SECTION 0: PROTOTYPE DATA
    Contribution: [Your Name]
    Hardcoded demo items used when the backend API is offline.
    Image filenames match exactly what is in public/uploads/.
+=======
+   PROTOTYPE DATA
+>>>>>>> Stashed changes
    ============================================================ */
 
 const PROTOTYPE_ITEMS = [
@@ -40,8 +44,12 @@ const PROTOTYPE_ITEMS = [
     status: 'found',
     contact: 'Janina Yu',
     phone: '0163456789',
+<<<<<<< Updated upstream
     image: '/uploads/Bracelet.jpg',
     timestamp: '3/9/2026, 2:30pm',
+=======
+    image: 'uploads/Bracelet.jpg',
+>>>>>>> Stashed changes
     displayTime: '3/9/2026, 2:30pm',
   },
   {
@@ -53,8 +61,12 @@ const PROTOTYPE_ITEMS = [
     status: 'found',
     contact: 'Alaina Kim',
     phone: '0173456789',
+<<<<<<< Updated upstream
     image: '/uploads/Keys.jpg',
     timestamp: '3/9/2026, 2:30pm',
+=======
+    image: 'uploads/Keys.jpg',
+>>>>>>> Stashed changes
     displayTime: '3/9/2026, 2:30pm',
   },
   {
@@ -66,9 +78,14 @@ const PROTOTYPE_ITEMS = [
     status: 'lost',
     contact: 'Honey Lee',
     phone: '0123456798',
+<<<<<<< Updated upstream
     image: '/uploads/Aipods.jpg',
     timestamp: '3/9/2026, 2:30pm',
     displayTime: '32 Mins Ago',   // shown in Recent Activity
+=======
+    image: 'uploads/Aipods.jpg',
+    displayTime: '32 Mins Ago',
+>>>>>>> Stashed changes
   },
   {
     id: 5,
@@ -79,9 +96,14 @@ const PROTOTYPE_ITEMS = [
     status: 'lost',
     contact: 'Ivy Em',
     phone: '0123456789',
+<<<<<<< Updated upstream
     image: '/uploads/Charging Cable Picture.jpg',
     timestamp: '3/9/2026, 2:30pm',
     displayTime: '1 Hour Ago',    // shown in Recent Activity
+=======
+    image: 'uploads/Charging Cable Picture.jpg',
+    displayTime: '1 Hour Ago',
+>>>>>>> Stashed changes
   },
   {
     id: 6,
@@ -92,9 +114,14 @@ const PROTOTYPE_ITEMS = [
     status: 'lost',
     contact: 'Carlos Reyes',
     phone: '0195812345',
+<<<<<<< Updated upstream
     image: '/uploads/Water Bottle Picture.jpg',
     timestamp: '3/9/2026, 2:30pm',
     displayTime: '2 Mins Ago',    // shown in Recent Activity
+=======
+    image: 'uploads/Water Bottle Picture.jpg',
+    displayTime: '2 Mins Ago',
+>>>>>>> Stashed changes
   },
 ];
 
@@ -117,10 +144,14 @@ async function getItems() {
 
 
 /* ============================================================
+<<<<<<< Updated upstream
    SECTION 1: TOAST NOTIFICATION UTILITY
    Contribution: [Your Name]
    Displays a non-blocking message at the bottom of the screen
    instead of browser alert() for a more polished UX.
+=======
+   UI UTILITIES (Toasts & Sidebar)
+>>>>>>> Stashed changes
    ============================================================ */
 
 /**
@@ -191,10 +222,14 @@ function initSidebar() {
 
 
 /* ============================================================
+<<<<<<< Updated upstream
    SECTION 3: PHOTO UPLOAD BOX
    Contribution: [Your Name]
    Makes the dashed upload area clickable and shows a preview
    of the selected image inside the box.
+=======
+   FORMS & VALIDATION
+>>>>>>> Stashed changes
    ============================================================ */
 
 function initUploadBox() {
@@ -353,10 +388,14 @@ function initSubmitBtn() {
 
 
 /* ============================================================
+<<<<<<< Updated upstream
    SECTION 6: HOME PAGE — Recent Activity
    Contribution: [Your Name]
    Shows the 3 specific missing items with hardcoded time-ago
    strings exactly as specified for the prototype demo.
+=======
+   DATA LOADING (Home, Gallery, Details)
+>>>>>>> Stashed changes
    ============================================================ */
 
 async function loadRecentActivity() {
@@ -494,6 +533,7 @@ async function loadItemDetails() {
   const nameEl = document.getElementById('detail-name');
   if (!nameEl) return; 
 
+<<<<<<< Updated upstream
   const urlParams = new URLSearchParams(window.location.search);
   const itemId = urlParams.get('id');
   
@@ -528,6 +568,26 @@ async function loadItemDetails() {
   // 3. POPULATE ACTIVITY HISTORY LIST
   const historyList = document.getElementById('activity-history-list');
   if (historyList) {
+=======
+  const itemId = new URLSearchParams(window.location.search).get('id');
+  const items = await getItems();
+  const item = items.find(i => String(i.id) === String(itemId)) || PROTOTYPE_ITEMS[0];
+  const set = (id, text) => { if(document.getElementById(id)) document.getElementById(id).textContent = text; };
+
+  set('detail-name', item.itemName);
+  set('detail-location', item.location);
+  set('detail-category', item.category);
+  set('detail-time', item.displayTime);
+  set('detail-description', item.description);
+  set('map-location-label', item.location);
+
+  if (item.image) {
+    document.getElementById('detail-img-hero').innerHTML = `<img src="${item.image}" alt="${item.itemName}" style="width:100%; height:100%; object-fit:cover; border-radius:var(--radius-lg);">`;
+  }
+
+const historyList = document.getElementById('activity-history-list');
+if (historyList && item) {
+>>>>>>> Stashed changes
     const statusAction = item.status === 'resolved' ? '✅ Item Returned' : `📌 Reported as ${item.status.toUpperCase()}`;
     historyList.innerHTML = `
       <li style="padding: 12px 0; border-bottom: 1px solid var(--gray-50); display: flex; align-items: center; gap: 12px;">
@@ -538,7 +598,13 @@ async function loadItemDetails() {
         </div>
       </li>
     `;
+<<<<<<< Updated upstream
   }
+=======
+}
+  const pillMap = { lost: 'status-lost', found: 'status-found', resolved: 'status-resolved' };
+  document.getElementById(pillMap[item.status])?.classList.add('active-status');
+>>>>>>> Stashed changes
 
   // 4. RESTORED: CONTACT INFO POPULATION
   const contactList = document.getElementById('contact-meta-list');
@@ -575,12 +641,48 @@ async function loadItemDetails() {
   document.title = `MapúaWhere — ${item.itemName}`;
 }
 
+<<<<<<< Updated upstream
 
 /* ============================================================
    SECTION 9: ENTRY POINT — window.onload
    Contribution: [Your Name]
    Detects which page is loaded and initialises only the
    relevant functions, keeping performance lean.
+=======
+/* ============================================================
+   IMAGE MAP & VIEWPORT
+   ============================================================ */
+function syncMapLocation(roomName, event) {
+    const container = document.getElementById('map-viewport');
+    if (container && event) {
+        container.scrollTo({
+            left: event.offsetX - (container.offsetWidth / 2),
+            top: event.offsetY - (container.offsetHeight / 2),
+            behavior: 'smooth'
+        });
+    }
+    const cap = document.getElementById('map-caption-text');
+    if (cap) cap.textContent = `Centered on: ${roomName}`;
+    showToast(`📍 Moving view to ${roomName}...`);
+}
+
+function fixMapCoordinates() {
+    const img = document.getElementById('mapua-image');
+    const map = document.getElementsByName('image-map')[0];
+    if (!img || !map) return;
+
+    const scaleX = img.clientWidth / img.naturalWidth;
+    const scaleY = img.clientHeight / img.naturalHeight;
+
+    Array.from(map.getElementsByTagName('area')).forEach(area => {
+        if (!area.dataset.originalCoords) area.dataset.originalCoords = area.coords;
+        area.coords = area.dataset.originalCoords.split(',').map((c, i) => Math.round(c * (i % 2 === 0 ? scaleX : scaleY))).join(',');
+    });
+}
+
+/* ============================================================
+  ENTRY POINT
+>>>>>>> Stashed changes
    ============================================================ */
 
 window.addEventListener('load', () => {
