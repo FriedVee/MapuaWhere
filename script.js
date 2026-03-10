@@ -286,9 +286,9 @@ async function loadRecentActivity() {
   if (!container) return;
 
   const RECENT = [
-    { id: 6, name: 'Water Bottle',    timeAgo: '2 Mins Ago',   location: 'Library',               image: '/uploads/Water Bottle Picture.jpg' },
-    { id: 5, name: 'Charging Cable',  timeAgo: '1 Hour Ago',   location: 'Cafeteria',            image: '/uploads/Charging Cable Picture.jpg' },
-    { id: 4, name: 'Airpods',         timeAgo: '32 Mins Ago',  location: 'Ground Floor Bathroom', image: '/uploads/Aipods.jpg' },
+    { id: 6, name: 'Water Bottle',    timeAgo: '2 Mins Ago',   location: 'Library',               image: 'uploads/Water Bottle Picture.jpg' },
+    { id: 5, name: 'Charging Cable',  timeAgo: '1 Hour Ago',   location: 'Cafeteria',            image: 'uploads/Charging Cable Picture.jpg' },
+    { id: 4, name: 'Airpods',         timeAgo: '32 Mins Ago',  location: 'Ground Floor Bathroom', image: 'uploads/Aipods.jpg' },
   ];
 
   container.innerHTML = '';
