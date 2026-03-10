@@ -10,10 +10,14 @@
 
 /* ============================================================
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
    SECTION 0: PROTOTYPE DATA
    Contribution: [Your Name]
    Hardcoded demo items used when the backend API is offline.
    Image filenames match exactly what is in public/uploads/.
+=======
+   PROTOTYPE DATA
+>>>>>>> Stashed changes
 =======
    PROTOTYPE DATA
 >>>>>>> Stashed changes
@@ -45,8 +49,12 @@ const PROTOTYPE_ITEMS = [
     contact: 'Janina Yu',
     phone: '0163456789',
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     image: '/uploads/Bracelet.jpg',
     timestamp: '3/9/2026, 2:30pm',
+=======
+    image: 'uploads/Bracelet.jpg',
+>>>>>>> Stashed changes
 =======
     image: 'uploads/Bracelet.jpg',
 >>>>>>> Stashed changes
@@ -62,8 +70,12 @@ const PROTOTYPE_ITEMS = [
     contact: 'Alaina Kim',
     phone: '0173456789',
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     image: '/uploads/Keys.jpg',
     timestamp: '3/9/2026, 2:30pm',
+=======
+    image: 'uploads/Keys.jpg',
+>>>>>>> Stashed changes
 =======
     image: 'uploads/Keys.jpg',
 >>>>>>> Stashed changes
@@ -79,10 +91,13 @@ const PROTOTYPE_ITEMS = [
     contact: 'Honey Lee',
     phone: '0123456798',
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     image: '/uploads/Aipods.jpg',
     timestamp: '3/9/2026, 2:30pm',
     displayTime: '32 Mins Ago',   // shown in Recent Activity
 =======
+=======
+>>>>>>> Stashed changes
     image: 'uploads/Aipods.jpg',
     displayTime: '32 Mins Ago',
 >>>>>>> Stashed changes
@@ -97,10 +112,13 @@ const PROTOTYPE_ITEMS = [
     contact: 'Ivy Em',
     phone: '0123456789',
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     image: '/uploads/Charging Cable Picture.jpg',
     timestamp: '3/9/2026, 2:30pm',
     displayTime: '1 Hour Ago',    // shown in Recent Activity
 =======
+=======
+>>>>>>> Stashed changes
     image: 'uploads/Charging Cable Picture.jpg',
     displayTime: '1 Hour Ago',
 >>>>>>> Stashed changes
@@ -115,10 +133,13 @@ const PROTOTYPE_ITEMS = [
     contact: 'Carlos Reyes',
     phone: '0195812345',
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     image: '/uploads/Water Bottle Picture.jpg',
     timestamp: '3/9/2026, 2:30pm',
     displayTime: '2 Mins Ago',    // shown in Recent Activity
 =======
+=======
+>>>>>>> Stashed changes
     image: 'uploads/Water Bottle Picture.jpg',
     displayTime: '2 Mins Ago',
 >>>>>>> Stashed changes
@@ -145,10 +166,14 @@ async function getItems() {
 
 /* ============================================================
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
    SECTION 1: TOAST NOTIFICATION UTILITY
    Contribution: [Your Name]
    Displays a non-blocking message at the bottom of the screen
    instead of browser alert() for a more polished UX.
+=======
+   UI UTILITIES (Toasts & Sidebar)
+>>>>>>> Stashed changes
 =======
    UI UTILITIES (Toasts & Sidebar)
 >>>>>>> Stashed changes
@@ -223,10 +248,14 @@ function initSidebar() {
 
 /* ============================================================
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
    SECTION 3: PHOTO UPLOAD BOX
    Contribution: [Your Name]
    Makes the dashed upload area clickable and shows a preview
    of the selected image inside the box.
+=======
+   FORMS & VALIDATION
+>>>>>>> Stashed changes
 =======
    FORMS & VALIDATION
 >>>>>>> Stashed changes
@@ -389,10 +418,14 @@ function initSubmitBtn() {
 
 /* ============================================================
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
    SECTION 6: HOME PAGE — Recent Activity
    Contribution: [Your Name]
    Shows the 3 specific missing items with hardcoded time-ago
    strings exactly as specified for the prototype demo.
+=======
+   DATA LOADING (Home, Gallery, Details)
+>>>>>>> Stashed changes
 =======
    DATA LOADING (Home, Gallery, Details)
 >>>>>>> Stashed changes
@@ -587,6 +620,9 @@ async function loadItemDetails() {
 
 const historyList = document.getElementById('activity-history-list');
 if (historyList && item) {
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
     const statusAction = item.status === 'resolved' ? '✅ Item Returned' : `📌 Reported as ${item.status.toUpperCase()}`;
     historyList.innerHTML = `
@@ -644,12 +680,15 @@ if (historyList && item) {
 <<<<<<< Updated upstream
 
 /* ============================================================
+<<<<<<< Updated upstream
    SECTION 9: ENTRY POINT — window.onload
    Contribution: [Your Name]
    Detects which page is loaded and initialises only the
    relevant functions, keeping performance lean.
 =======
 /* ============================================================
+=======
+>>>>>>> Stashed changes
    IMAGE MAP & VIEWPORT
    ============================================================ */
 function syncMapLocation(roomName, event) {
@@ -682,6 +721,9 @@ function fixMapCoordinates() {
 
 /* ============================================================
   ENTRY POINT
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
    ============================================================ */
 
