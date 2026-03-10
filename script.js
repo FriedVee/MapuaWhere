@@ -506,15 +506,38 @@ function syncMapLocation(roomName, event) {
    SECTION 9: ENTRY POINT
    Contribution: [Your Name]
    ============================================================ */
+/* ============================================================
+   SECTION 9: ENTRY POINT
+   ============================================================ */
 window.addEventListener('load', () => {
+  // 1. Initialize Global UI
   initSidebar();
-  initSidebar();
-  initUploadBox();
-  initSubmitBtn();
+  
+  // 2. Initialize Form Logic (Only if on a form page)
+  if (document.getElementById('upload-box')) {
+      initUploadBox();
+      initSubmitBtn();
+      // Only call if the function exists
+      if (typeof initLiveValidation === "function") initLiveValidation();
+  }
 
-  loadRecentActivity();
-  setupFilters();
-  loadGallery();
-  loadItemDetails();
-  syncMapLocation(); // Map logic is independent, can be initialized on details page
+  // 3. Load Page-Specific Content
+  // Only load recent activity if on the Home Page
+  if (document.getElementById('activity-list')) {
+      loadRecentActivity();
+  }
+
+  // Only load gallery if on the Gallery Page
+  if (document.getElementById('gallery-grid')) {
+      setupFilters();
+      loadGallery();
+  }
+
+  // Only load item details if on the Details Page
+  if (document.getElementById('detail-name')) {
+      loadItemDetails();
+  }
+  
+  // REMOVE: syncMapLocation() - This should NEVER be called on load.
+  // It only triggers when a user clicks a room on your map.
 });
