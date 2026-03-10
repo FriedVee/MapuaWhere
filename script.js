@@ -10,11 +10,7 @@
 
 /* ============================================================
    SECTION 0: PROTOTYPE DATA
-   Contribution: [Your Name]
-   Hardcoded demo items used when the backend API is offline.
-   Image filenames match exactly what is in public/uploads/.
    ============================================================ */
-
 const PROTOTYPE_ITEMS = [
   {
     id: 1,
@@ -23,12 +19,9 @@ const PROTOTYPE_ITEMS = [
     location: '2nd Floor Bathroom',
     description: 'Totoro Pouch with mini cabbage and star keychain on it and coins inside.',
     status: 'resolved',
-    contact: 'Honey Lee',        // Found By
+    contact: 'Honey Lee',
     phone: '0123456798',
-    returnedTo: 'Janina Yu',
-    returnedToPhone: '0163456789',
     image: 'uploads/Totoro_Pouch.jpg',
-    timestamp: '3/9/2026, 2:30pm',
     displayTime: '3/9/2026, 2:30pm',
   },
   {
@@ -49,7 +42,7 @@ const PROTOTYPE_ITEMS = [
     category: 'Wallets/Keys/IDs',
     itemName: 'Keys',
     location: 'Back Entrance',
-    description: '3 keys, one black and two plain silver, it has a kraftvear & n1 keychain and a self defense alarm.',
+    description: '3 keys, one black and two plain silver, it has a kraftvear & n1 keychain.',
     status: 'found',
     contact: 'Alaina Kim',
     phone: '0173456789',
@@ -112,7 +105,6 @@ async function getItems() {
   }
 }
 
-
 /* ============================================================
    SECTION 1: TOAST NOTIFICATION UTILITY
    Contribution: [Your Name]
@@ -164,12 +156,10 @@ function initSidebar() {
   });
 }
 
-
 /* ============================================================
    SECTION 3: PHOTO UPLOAD BOX
    Contribution: [Your Name]
    ============================================================ */
-
 function initUploadBox() {
   const uploadBox = document.querySelector('#upload-box');
   const fileInput = document.getElementById('itemPhoto');
@@ -188,13 +178,8 @@ function initUploadBox() {
     const file = fileInput.files[0];
     const reader = new FileReader();
     reader.onload = (e) => {
-      uploadBox.innerHTML = `
-        <img src="${e.target.result}" class="upload-preview" alt="Preview">
-        <div style="position:absolute;bottom:8px;right:8px;background:rgba(0,0,0,.5);
-                    color:white;font-size:11px;padding:3px 8px;border-radius:99px;">
-          ✏️ Change
-        </div>
-      `;
+      uploadBox.innerHTML = `<img src="${e.target.result}" class="upload-preview" alt="Preview">
+                             <div class="upload-change-label">✏️ Change</div>`;
       uploadBox.classList.add('has-image');
     };
     reader.readAsDataURL(file);
@@ -212,10 +197,9 @@ function validateField(fieldId, errorId) {
   const error = document.getElementById(errorId);
   if (!field || !error) return true;
 
-  const isEmpty = field.value.trim() === '' || field.value === '';
+  const isEmpty = field.value.trim() === '';
   field.classList.toggle('error', isEmpty);
   error.classList.toggle('show', isEmpty);
-
   return !isEmpty;
 }
 
@@ -228,8 +212,7 @@ function validateForm() {
   ];
   const isValid = checks.every(Boolean);
   if (!isValid) {
-    const firstError = document.querySelector('.input-field.error');
-    firstError?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    document.querySelector('.input-field.error')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
     showToast('Please fill in all required fields.', 'error');
   }
   return isValid;
@@ -265,18 +248,16 @@ function initSubmitBtn() {
     submitBtn.classList.add('loading');
     submitBtn.disabled = true;
 
-    const fileInput  = document.getElementById('itemPhoto');
-    const formData   = new FormData();
-    if (fileInput?.files?.length) {
-      formData.append('itemPhoto', fileInput.files[0]);
-    }
-    formData.append('category',    document.getElementById('category')?.value    ?? '');
-    formData.append('itemName',    document.getElementById('item-name')?.value   ?? '');
-    formData.append('location',    document.getElementById('location')?.value    ?? '');
-    formData.append('description', document.getElementById('description')?.value ?? '');
+    const formData = new FormData();
+    const fileInput = document.getElementById('itemPhoto');
+    if (fileInput?.files[0]) formData.append('itemPhoto', fileInput.files[0]);
+    
+    ['category', 'item-name', 'location', 'description'].forEach(id => {
+        const val = document.getElementById(id)?.value ?? '';
+        formData.append(id === 'item-name' ? 'itemName' : id, val);
+    });
 
-    const isLost = window.location.pathname.includes('lostform');
-    formData.append('status', isLost ? 'lost' : 'found');
+    formData.append('status', window.location.pathname.includes('lostform') ? 'lost' : 'found');
 
     try {
       const response = await fetch('/api/report', {
@@ -286,8 +267,6 @@ function initSubmitBtn() {
       if (response.ok) {
         showToast('Your report has been posted!', 'success', 3000);
         setTimeout(() => window.location.href = 'index.html', 1500);
-      } else {
-        showToast('Server error — please try again.', 'error');
       }
     } catch (err) {
       showToast('Connection failed. Is the server running?', 'error');
@@ -298,12 +277,10 @@ function initSubmitBtn() {
   });
 }
 
-
 /* ============================================================
    SECTION 6: HOME PAGE — Recent Activity
    Contribution: [Your Name]
    ============================================================ */
-
 async function loadRecentActivity() {
   const container = document.getElementById('activity-list');
   if (!container) return;
@@ -350,14 +327,11 @@ async function loadGallery(filter = 'All') {
   grid.innerHTML = '';
 
   if (filter !== 'All') {
-    items = items.filter(item => {
-      const cat    = (item.category ?? '').toLowerCase();
-      const target = filter.toLowerCase();
-      return cat === target || cat.includes(target) || target.includes(cat);
-    });
+    items = items.filter(i => (i.category ?? '').toLowerCase().includes(filter.toLowerCase()));
   }
 
   if (!items.length) {
+    grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1"><p>No items found.</p></div>`;
     grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1"><p>No items found.</p></div>`;
     return;
   }
@@ -406,7 +380,7 @@ function setupFilters() {
 
 async function loadItemDetails() {
   const nameEl = document.getElementById('detail-name');
-  if (!nameEl) return; 
+  if (!nameEl) return;
 
   const urlParams = new URLSearchParams(window.location.search);
   const itemId = urlParams.get('id');
@@ -430,10 +404,8 @@ async function loadItemDetails() {
   if (document.getElementById('detail-time')) document.getElementById('detail-time').textContent = item.displayTime || item.timestamp;
   if (document.getElementById('detail-description')) document.getElementById('detail-description').textContent = item.description;
 
-  // 2. HERO IMAGE POPULATION
-  const heroBox = document.getElementById('detail-img-hero');
-  if (heroBox && item.image) {
-    heroBox.innerHTML = `<img src="${item.image}" alt="${item.itemName}" style="width:100%; height:100%; object-fit:cover; border-radius:var(--radius-lg);">`;
+  if (item.image) {
+    document.getElementById('detail-img-hero').innerHTML = `<img src="${item.image}" alt="${item.itemName}" style="width:100%; height:100%; object-fit:cover; border-radius:var(--radius-lg);">`;
   }
 
   // 3. POPULATE ACTIVITY HISTORY LIST (Semantic List)
@@ -441,9 +413,9 @@ async function loadItemDetails() {
   if (historyList) {
     const statusAction = item.status === 'resolved' ? '✅ Item Returned' : `📌 Reported as ${item.status.toUpperCase()}`;
     historyList.innerHTML = `
-      <li style="padding: 12px 0; border-bottom: 1px solid var(--gray-50); display: flex; align-items: center; gap: 12px;">
+      <li>
         <span style="font-size: 20px;">📍</span>
-        <div>
+        <div class="history-content">
           <div style="font-size: 14px; font-weight: 700; color: var(--gray-900);">${statusAction}</div>
           <div style="font-size: 12px; color: var(--gray-500);">${item.displayTime || 'Just now'}</div>
         </div>
@@ -466,8 +438,7 @@ async function loadItemDetails() {
 
   // 5. UPDATE UI STATES (Status Pills)
   const pillMap = { lost: 'status-lost', found: 'status-found', resolved: 'status-resolved' };
-  const activePill = document.getElementById(pillMap[item.status]);
-  if (activePill) activePill.classList.add('active-status');
+  document.getElementById(pillMap[item.status])?.classList.add('active-status');
 
   // Sync Map labels
   const mapLabel = document.getElementById('map-location-label');
@@ -535,11 +506,10 @@ function syncMapLocation(roomName, event) {
    SECTION 9: ENTRY POINT
    Contribution: [Your Name]
    ============================================================ */
-
 window.addEventListener('load', () => {
   initSidebar();
+  initSidebar();
   initUploadBox();
-  initLiveValidation();
   initSubmitBtn();
 
   loadRecentActivity();
