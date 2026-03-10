@@ -61,7 +61,7 @@ const PROTOTYPE_ITEMS = [
     phone: '0123456798',
     image: 'uploads/Airpods.jpg',
     timestamp: '3/9/2026, 2:30pm',
-    displayTime: '32 Mins Ago',   // shown in Recent Activity
+    displayTime: '32 Mins Ago',
   },
   {
     id: 5,
@@ -74,7 +74,7 @@ const PROTOTYPE_ITEMS = [
     phone: '0123456789',
     image: 'uploads/Charging_Cable_Picture.jpg',
     timestamp: '3/9/2026, 2:30pm',
-    displayTime: '1 Hour Ago',    // shown in Recent Activity
+    displayTime: '1 Hour Ago',
   },
   {
     id: 6,
@@ -87,7 +87,7 @@ const PROTOTYPE_ITEMS = [
     phone: '0195812345',
     image: 'uploads/Water_Bottle_Picture.jpg',
     timestamp: '3/9/2026, 2:30pm',
-    displayTime: '2 Mins Ago',    // shown in Recent Activity
+    displayTime: '2 Mins Ago',
   },
 ];
 
@@ -166,23 +166,15 @@ function initUploadBox() {
   if (!uploadBox || !fileInput) return;
 
   uploadBox.addEventListener('click', () => fileInput.click());
-  uploadBox.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      fileInput.click();
-    }
-  });
-
   fileInput.addEventListener('change', () => {
     if (!fileInput.files?.length) return;
-    const file = fileInput.files[0];
     const reader = new FileReader();
     reader.onload = (e) => {
       uploadBox.innerHTML = `<img src="${e.target.result}" class="upload-preview" alt="Preview">
                              <div class="upload-change-label">✏️ Change</div>`;
       uploadBox.classList.add('has-image');
     };
-    reader.readAsDataURL(file);
+    reader.readAsDataURL(fileInput.files[0]);
   });
 }
 
@@ -285,10 +277,11 @@ async function loadRecentActivity() {
   const container = document.getElementById('activity-list');
   if (!container) return;
 
+  // Use relative paths for deployment
   const RECENT = [
     { id: 6, name: 'Water Bottle',    timeAgo: '2 Mins Ago',   location: 'Library',               image: 'uploads/Water_Bottle_Picture.jpg' },
     { id: 5, name: 'Charging Cable',  timeAgo: '1 Hour Ago',   location: 'Cafeteria',            image: 'uploads/Charging_Cable_Picture.jpg' },
-    { id: 4, name: 'Airpods',         timeAgo: '32 Mins Ago',  location: 'Ground Floor Bathroom', image: 'uploads/Airpods.jpg' },
+    { id: 4, name: 'Airpods',          timeAgo: '32 Mins Ago',  location: 'Ground Floor Bathroom', image: 'uploads/Airpods.jpg' },
   ];
 
   container.innerHTML = '';
@@ -298,7 +291,7 @@ async function loadRecentActivity() {
     card.style.animationDelay = `${index * 60}ms`;
     card.innerHTML = `
       <div class="item-img-thumb">
-        <img src="${item.image}" alt="${item.name}">
+        <img src="${item.image}" alt="${item.name}" onerror="this.src='MapuaWhere_Logo.png'">
       </div>
       <div class="item-info">
         <span class="item-name">${item.name}</span>
@@ -332,7 +325,6 @@ async function loadGallery(filter = 'All') {
 
   if (!items.length) {
     grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1"><p>No items found.</p></div>`;
-    grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1"><p>No items found.</p></div>`;
     return;
   }
 
@@ -344,7 +336,7 @@ async function loadGallery(filter = 'All') {
     card.className = 'grid-item';
     card.style.animationDelay = `${index * 40}ms`;
     card.innerHTML = `
-      <div class="img-box">${item.image ? `<img src="${item.image}" alt="${item.itemName}">` : '📦'}</div>
+      <div class="img-box">${item.image ? `<img src="${item.image}" alt="${item.itemName}" onerror="this.src='MapuaWhere_Logo.png'">` : '📦'}</div>
       <div class="grid-item-details">
         <span class="grid-item-name">${item.itemName}</span>
         <span class="grid-item-loc">📍 ${item.location}</span>
@@ -390,14 +382,14 @@ async function loadItemDetails() {
   }
 
   const items = await getItems(); 
-  const item = items.find(i => String(i.id) === String(itemId));
+  const item = items.find(i => String(i.id) === String(itemId)) || PROTOTYPE_ITEMS[0];
 
   if (!item) {
     nameEl.textContent = 'Item not found.';
     return;
   }
 
-  // 1. POPULATE DESCRIPTION TABLE (Semantic Functional Table)
+  // 1. POPULATE DESCRIPTION TABLE
   if (document.getElementById('detail-name')) nameEl.textContent = item.itemName;
   if (document.getElementById('detail-location')) document.getElementById('detail-location').textContent = item.location;
   if (document.getElementById('detail-category')) document.getElementById('detail-category').textContent = item.category;
@@ -405,10 +397,11 @@ async function loadItemDetails() {
   if (document.getElementById('detail-description')) document.getElementById('detail-description').textContent = item.description;
 
   if (item.image) {
-    document.getElementById('detail-img-hero').innerHTML = `<img src="${item.image}" alt="${item.itemName}" style="width:100%; height:100%; object-fit:cover; border-radius:var(--radius-lg);">`;
+    const hero = document.getElementById('detail-img-hero');
+    if (hero) hero.innerHTML = `<img src="${item.image}" alt="${item.itemName}" style="width:100%; height:100%; object-fit:cover; border-radius:var(--radius-lg);" onerror="this.src='MapuaWhere_Logo.png'">`;
   }
 
-  // 3. POPULATE ACTIVITY HISTORY LIST (Semantic List)
+  // 3. POPULATE ACTIVITY HISTORY LIST
   const historyList = document.getElementById('activity-history-list');
   if (historyList) {
     const statusAction = item.status === 'resolved' ? '✅ Item Returned' : `📌 Reported as ${item.status.toUpperCase()}`;
@@ -423,7 +416,7 @@ async function loadItemDetails() {
     `;
   }
 
-  // 4. CONTACT INFO POPULATION (Restored Reporter section)
+  // 4. CONTACT INFO POPULATION
   const contactList = document.getElementById('contact-meta-list');
   if (contactList) {
     contactList.innerHTML = `
@@ -431,7 +424,7 @@ async function loadItemDetails() {
         <span style="font-size:20px;">👤</span>
         <div>
           <div style="font-size:11px; font-weight:700; color:var(--gray-400); text-transform:uppercase;">Contact Person</div>
-          <div style="color:var(--gray-800); font-weight:500;">${item.contact} | ${item.phone}</div>
+          <div style="color:var(--gray-800); font-weight:500;">${item.contact || 'Staff'} | ${item.phone || 'N/A'}</div>
         </div>
       </div>`;
   }
@@ -444,100 +437,70 @@ async function loadItemDetails() {
   const mapLabel = document.getElementById('map-location-label');
   if (mapLabel) mapLabel.textContent = item.location;
 
-  // Message Reporter button logic
-  const ctaBtn = document.getElementById('contact-btn');
-  if (ctaBtn) {
-    ctaBtn.addEventListener('click', () => {
-      showToast(`Messaging ${item.contact ?? 'reporter'} — coming soon!`);
-    });
-  }
-
   document.title = `MapúaWhere — ${item.itemName}`;
 }
 
-/**
- * MapúaWhere — Image Map Logic
- * Syncs map taps to the UI labels.
- */
-/**
- * PROFICIENT: Dynamic Map Centering
- * Moves the viewport to the tapped coordinates.
- */
 /**
  * PROFICIENT: Dynamic Centering Logic
  * Moves the map viewport based on the tapped coordinate
  */
 function syncMapLocation(roomName, event) {
     const container = document.getElementById('map-viewport');
-    const img = event.target;
-
-    if (container && img) {
-        // 1. Calculate the click position relative to the image
-        const rect = img.getBoundingClientRect();
-        const offsetX = event.clientX - rect.left;
-        const offsetY = event.clientY - rect.top;
-
-        // 2. Calculate the center of the viewport
-        const scrollX = offsetX - (container.clientWidth / 2);
-        const scrollY = offsetY - (container.clientHeight / 2);
-
-        // 3. Perform the move
+    if (container && event) {
         container.scrollTo({
-            left: scrollX,
-            top: scrollY,
+            left: event.offsetX - (container.offsetWidth / 2),
+            top: event.offsetY - (container.offsetHeight / 2),
             behavior: 'smooth'
         });
     }
-
-    // Update labels and show feedback
     const caption = document.getElementById('map-caption-text');
     if (caption) caption.textContent = `Centered on: ${roomName}`;
-    
-    const tableLoc = document.getElementById('detail-location');
-    if (tableLoc) {
-        tableLoc.textContent = roomName;
-        tableLoc.style.color = 'var(--red-500)';
-    }
-
     showToast(`📍 Map moved to ${roomName}`, 'info');
+}
+
+/**
+ * PROFICIENT: Responsive Map Coordinate Resizer
+ */
+function fixMapCoordinates() {
+    const img = document.getElementById('mapua-image');
+    const map = document.getElementsByName('image-map')[0];
+    if (!img || !map || img.naturalWidth === 0) return;
+
+    const scaleX = img.clientWidth / img.naturalWidth;
+    const scaleY = img.clientHeight / img.naturalHeight;
+
+    Array.from(map.getElementsByTagName('area')).forEach(area => {
+        if (!area.dataset.originalCoords) area.dataset.originalCoords = area.coords;
+        area.coords = area.dataset.originalCoords.split(',').map((c, i) => Math.round(c * (i % 2 === 0 ? scaleX : scaleY))).join(',');
+    });
 }
 
 /* ============================================================
    SECTION 9: ENTRY POINT
    Contribution: [Your Name]
    ============================================================ */
-/* ============================================================
-   SECTION 9: ENTRY POINT
-   ============================================================ */
 window.addEventListener('load', () => {
-  // 1. Initialize Global UI
   initSidebar();
   
-  // 2. Initialize Form Logic (Only if on a form page)
   if (document.getElementById('upload-box')) {
       initUploadBox();
       initSubmitBtn();
-      // Only call if the function exists
-      if (typeof initLiveValidation === "function") initLiveValidation();
+      initLiveValidation();
   }
 
-  // 3. Load Page-Specific Content
-  // Only load recent activity if on the Home Page
-  if (document.getElementById('activity-list')) {
-      loadRecentActivity();
-  }
-
-  // Only load gallery if on the Gallery Page
+  if (document.getElementById('activity-list')) loadRecentActivity();
   if (document.getElementById('gallery-grid')) {
       setupFilters();
       loadGallery();
   }
+  if (document.getElementById('detail-name')) loadItemDetails();
 
-  // Only load item details if on the Details Page
-  if (document.getElementById('detail-name')) {
-      loadItemDetails();
+  // Map Initialization Guard
+  const mapImg = document.getElementById('mapua-image');
+  if (mapImg) {
+    if (mapImg.complete) fixMapCoordinates();
+    else mapImg.addEventListener('load', fixMapCoordinates);
   }
-  
-  // REMOVE: syncMapLocation() - This should NEVER be called on load.
-  // It only triggers when a user clicks a room on your map.
 });
+
+window.addEventListener('resize', fixMapCoordinates);
