@@ -463,7 +463,7 @@ async function loadItemDetails() {
  * PROFICIENT: Dynamic Map Centering
  * Moves the viewport to the tapped coordinates.
  */
-f/**
+/**
  * PROFICIENT: Dynamic Centering Logic
  * Moves the map viewport based on the tapped coordinate
  */
