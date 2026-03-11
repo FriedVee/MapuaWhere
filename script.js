@@ -264,7 +264,7 @@ function initSubmitBtn() {
         throw new Error('Server Error');
       }
     } catch (err) {
-      // PROTOTYPE MODE: This part runs on GitHub Pages
+      
       console.warn("API not found, falling back to prototype mode.");
       
       // Still show the success toast so the student/professor sees the feature works!

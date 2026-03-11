@@ -103,9 +103,7 @@ body {
 }
 
 /* ============================================================
-   3. HONEY: PHONE CONTAINER & ARCHITECTURE
-   Contribution: Honey provided the foundational device frame 
-   and structural layout logic for mobile viewing.
+   HONEY: PHONE CONTAINER & ARCHITECTURE
    ============================================================ */
 .phone-container {
   width: var(--phone-w);
@@ -140,7 +138,7 @@ body {
 .page-content::-webkit-scrollbar { display: none; }
 
 /* ============================================================
-   4. PERSISTENT HEADER
+   PERSISTENT HEADER
    ============================================================ */
 .app-header {
   height: var(--header-h);
@@ -193,10 +191,10 @@ body {
 
    Contribution: 
 
-   Honey created the slide-in mechanism and 
+   Honey - created the slide-in mechanism and 
    overlay. 
 
-   IVY provided the final polish, integrated the 
+   Ivy - final polish, integrated the 
    Account section, and refined the tagline/footer.
    ============================================================ */
 .sidebar-overlay {
@@ -286,11 +284,6 @@ body {
 
 /* ============================================================
    CARLOS: TOGGLE ICON & ANIMATIONS
-
-   Contribution: 
-   
-   Developed the animated hamburger icon 
-   (.common) and the checkbox-based toggle logic.
    ============================================================ */
 .bottom-nav {
   height: var(--nav-h);
@@ -378,9 +371,6 @@ body {
 
 /* ============================================================
    8. LOUISE: HOVER STATES & TRANSITIONS
-
-   Contribution:
-    Developed smooth transitions, grid-item scaling, and button hovers.
    ============================================================ */
 .btn-action:hover {
      background: #333; 
@@ -527,7 +517,7 @@ body {
 }
 
 /* ============================================================
-   10. DETAILS PAGE
+   DETAILS PAGE
    ============================================================ */
 .details-header { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
 
@@ -614,6 +604,10 @@ body {
     font-weight: 500;
     text-align: right;
 }
+
+/* ============================================================
+   IVY - ITEM DESCRIPTION, ACTIVITY LIST, & MAP SECTION POLISH
+   ============================================================ */
 
 /* Description Box Polish */
 .detail-description {
@@ -720,11 +714,6 @@ body {
 
 /* ============================================================
    ALMARIO: FORMS (Found & Lost)
-
-   Contribution: 
-
-   Developed the multi-step form architecture, 
-   the dark camera upload box, and the tabbed reporting interface.
    ============================================================ */
 .form-page { 
   min-height: 100%; 
@@ -849,9 +838,7 @@ select.input-field {
 .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
 /* ============================================================
-   FILTER SCROLLBAR & FINAL POLISH
-   Contribution: Consolidated scrollbar logic for the gallery 
-   chip navigation.
+   CARLOS & HONEY: FILTER SCROLLBAR & FINAL POLISH
    ============================================================ */
 .filter-scroll {
     display: flex !important;
