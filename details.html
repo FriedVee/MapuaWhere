@@ -9,6 +9,44 @@
 <body>
 
   <main class="phone-container">
+
+     <div class="sidebar-overlay" id="sidebar-overlay" onclick="closeSidebar()"></div>
+<aside class="sidebar" id="sidebar">
+  
+  <div class="sidebar-header">
+    <div class="sidebar-logo-wrap">
+      <span class="sidebar-logo-text">MapúaWhere</span>
+    </div>
+    <p class="sidebar-tagline">Mapúa University Makati — Lost & Found</p>
+  </div>
+  
+  <nav class="sidebar-nav">
+    <p class="sidebar-section-label">Account</p>
+    <button class="sidebar-link" onclick="showToast('Sign In coming soon!'); closeSidebar()">
+      <span class="s-icon">🔐</span> Sign In / Sign Out
+    </button>
+    <button class="sidebar-link" onclick="showToast('Account settings coming soon!'); closeSidebar()">
+      <span class="s-icon">👤</span> Account
+    </button>
+    
+    <div class="sidebar-divider"></div>
+    
+    <p class="sidebar-section-label">Navigate</p>
+    <a href="index.html" class="sidebar-link"><span class="s-icon">🏠</span> Home</a>
+    <a href="gallery.html" class="sidebar-link"><span class="s-icon">🗂️</span> Gallery</a>
+    <a href="foundform.html" class="sidebar-link"><span class="s-icon">📌</span> Report Item</a>
+    
+    <div class="sidebar-divider"></div>
+    
+    <p class="sidebar-section-label">Support</p>
+    <button class="sidebar-link" onclick="showToast('Help page coming soon!'); closeSidebar()">
+      <span class="s-icon">❓</span> Need Help
+    </button>
+  </nav>
+  
+  <div class="sidebar-footer">© MapuaWhere 2026</div>
+</aside>
+
     <header class="app-header">
       <a href="index.html" class="header-logo">
         <img src="MapuaWhere_Logo.png" alt="MapúaWhere" style="height: 50px;">

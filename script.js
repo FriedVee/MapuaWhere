@@ -1,6 +1,6 @@
 /**
  * MapúaWhere — Client-Side Logic
- * Author : [Your Name]
+ * Author : HONEY & IVY 
  * Course : ITS121 Web Systems and Technologies
  * Purpose: Handles UI interactions, client-side validation,
  * data loading from the Express API, and DOM updates
@@ -106,8 +106,7 @@ async function getItems() {
 }
 
 /* ============================================================
-   SECTION 1: TOAST NOTIFICATION UTILITY
-   Contribution: [Your Name]
+   TOAST NOTIFICATION UTILITY
    ============================================================ */
 
 function showToast(message, type = 'info', duration = 3000) {
@@ -180,8 +179,7 @@ function initUploadBox() {
 
 
 /* ============================================================
-   SECTION 4: CLIENT-SIDE FORM VALIDATION
-   Contribution: [Your Name]
+   CLIENT-SIDE FORM VALIDATION
    ============================================================ */
 
 function validateField(fieldId, errorId) {
@@ -227,8 +225,7 @@ function initLiveValidation() {
 
 
 /* ============================================================
-   SECTION 5: FORM SUBMIT HANDLER
-   Contribution: [Your Name]
+   FORM SUBMIT HANDLER
    ============================================================ */
 
 function initSubmitBtn() {
@@ -282,8 +279,7 @@ function initSubmitBtn() {
 }
 
 /* ============================================================
-   SECTION 6: HOME PAGE — Recent Activity
-   Contribution: [Your Name]
+   HOME PAGE — Recent ActivitY
    ============================================================ */
 async function loadRecentActivity() {
   const container = document.getElementById('activity-list');
@@ -376,9 +372,7 @@ function setupFilters() {
 
 
 /* ============================================================
-   SECTION 8: DETAILS PAGE — Load Item Info
-   Contribution: [HONEY] - URL Params & Baseline Population
-   Contribution: [IVORY] - Integrated Table & History List logic
+   DETAILS PAGE — Load Item Info
    ============================================================ */
 
 async function loadItemDetails() {
@@ -489,8 +483,7 @@ function fixMapCoordinates() {
 }
 
 /* ============================================================
-   SECTION 9: ENTRY POINT
-   Contribution: [Your Name]
+ ENTRY POINT
    ============================================================ */
 window.addEventListener('load', () => {
   initSidebar();

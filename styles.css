@@ -820,7 +820,7 @@ select.input-field {
 .license-footer a { color: var(--red-400); text-decoration: none; }
 
 /* ============================================================
-   TOAST NOTIFICATION
+   HONEY: TOAST NOTIFICATION
    ============================================================ */
 .toast {
   position: absolute;
